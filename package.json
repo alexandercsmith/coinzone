@@ -19,6 +19,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "dotenv": "^10.0.0",
-    "trading-signals": "^1.7.0"
+    "trading-signals": "^1.7.0",
+    "ws": "^7.5.0"
   }
 }

@@ -1,0 +1,4 @@
+/**
+ * @module coinzone
+ */
+require('./src');
