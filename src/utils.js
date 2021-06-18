@@ -1,8 +1,14 @@
 /**
- * @module algorithm
- * @desc   { Array } prototype extension algorithm operations
+ * @module utils
  */
 
+/*
+ utils {
+   Array.combinations (size, repeat)
+   Array.permutations (repeat)
+   Array.powerSet ()
+ }
+ */
 
 /**
  * @function  combinations 

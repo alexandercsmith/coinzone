@@ -6,6 +6,19 @@ const axios     = require('axios');
 const crypto    = require('crypto');
 const websocket = require('ws');
 
+/*
+ Coinbase {
+   static WS:          WebSocket
+   static Granularity: { ... }
+
+   #config: { ... }
+   #sign (url, method, data)
+
+   async get  (url, params)
+   async buy  (order)
+   async sell (order)
+ } 
+ */
 
 /**
  * @class 
@@ -13,7 +26,24 @@ const websocket = require('ws');
  */
 module.exports = class Coinbase {
   /**
-   * @static @interface WS
+   * @static
+   * @interface Granularity
+   * @type    { Object }
+   */
+  static Granularity = {
+    "1m":  60,     /*  1 (minute) */
+    "5m":  300,    /*  5 (minute) */
+    "15m": 900,    /* 15 (minute) */
+    "1h":  3600,   /*  1 (hour)   */
+    "6h":  21600,  /*  6 (hour)   */
+    "1d":  86400   /*  1 (day)    */
+  }
+
+  
+  /**
+   * @static 
+   * @interface WS
+   * @type    { WebSocket }
    */
   static WS = () => new websocket('wss://ws-feed.pro.coinbase.com');
 
@@ -23,8 +53,19 @@ module.exports = class Coinbase {
    * @param { Boolean } production false
    */
   constructor (production=false) {
-    this.client = axios.create(production ? this.#config.api.production : this.#config.api.sandbox);
-    this.secret = production ? this.#config.secret.production : this.#config.secret.sandbox;
+    /**
+     * @prop { Object } api
+     */
+    this.api = axios.create(production 
+      ? this.#config.api.production 
+      : this.#config.api.sandbox);
+
+    /**
+     * @prop { String } secret 
+     */
+    this.secret = production 
+      ? this.#config.secret.production 
+      : this.#config.secret.sandbox;
   }
 
 
@@ -79,15 +120,24 @@ module.exports = class Coinbase {
   * @async 
   * @function get
   * @param  { String } url 
-  * @param  { String } id null 
   * @param  { Object } params {}
   * @return { Array | Object } 
   */
-  async get (url, id=null, params={}) {
+  async get (url, params={}) {
     try {
-      url = "/".concat(!!id ? [url, id].join('/') : url);
-      url = Object.entries(params).length > 0 ? url + new URLSearchParams(params).toString() : url;
-      return await this.client.request({ url, headers: this.#sign(url) }).then(res => res.data);
+      // @url
+      if (!url.startsWith('/')) { 
+        url = "/".concat(url); 
+      }
+      // @params
+      if (Object.entries(params).length > 0) { 
+        url = [url, new URLSearchParams(params).toString()].join('?'); 
+      }
+      // @request
+      return await this.api.request({ 
+        url, 
+        headers: this.#sign(url) 
+      }).then(res => res.data);
     } catch (e) {
       console.error('coinbase: get', url, e.message);
       throw new Error(e);
@@ -98,7 +148,7 @@ module.exports = class Coinbase {
   /**
   * @async
   * @function buy
-  * @param  { Object } order
+  * @param  { Object } order {}
   * @return { Object }
   */
   async buy (order={}) {
@@ -114,7 +164,7 @@ module.exports = class Coinbase {
   /**
   * @async
   * @function sell
-  * @param  { Object } order
+  * @param  { Object } order {}
   * @return { Object }
   */
   async sell (order={}) {
