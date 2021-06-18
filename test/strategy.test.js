@@ -2,7 +2,7 @@
  * @module test/strategy
  */
 const app = require('../src');
-const data = require('./candles/1_day.json');
+const data = require('./candles/1d.json');
 
 
 /**

@@ -4,7 +4,7 @@
 
 /*
  Indicator {
-   Signal:     TradingSignals
+   Indicator:  trading-signals
    indicators: Map
    rates:      []
    
@@ -16,9 +16,9 @@
 
 module.exports = {
   /**
-   * @property { Object } TS
+   * @property { Object } Indicator
    */
-  Signal: require('trading-signals'),
+  Indicator: require('trading-signals'),
 
   /**
    * @property { Map } indicators 
@@ -54,7 +54,7 @@ module.exports = {
   set (id, interval=3) {
     id = id.toUpperCase();
     if (Object.keys(this.Signal).includes(id)) {
-      this.indicators.set(id, new this.Signal[id](interval));
+      this.indicators.set(id, new this.Indicator[id](interval));
       this.rates.forEach(rate => this.indicators.get(id).update(rate));
     }
   },

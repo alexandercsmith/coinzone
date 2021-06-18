@@ -3,23 +3,15 @@
  */
 require('dotenv').config();
 
-
 /*
  Coinzone {
    static Coinbase: class Coinbase
-   candles: { ... }
+   candles:   { ... }
    indicator: { ... }
    async init ()
    update     ([Number(6)])
  }
  */
-
-
-/**
- * @imports
- */
-// require('./algorithm');
-
 
 /**
  * @class @export { Coinzone }
@@ -30,19 +22,6 @@ module.exports = class Coinzone {
    * @name Coinbase
    */
   static Coinbase = require('./coinbase');
-
-
-  /**
-   * @module candles
-   */
-  candles = require('./candles');
-
-
-  /**
-   * @module indicator 
-   */
-  indicator = require('./indicator');
-
 
   /**
    * @constructor
@@ -60,6 +39,16 @@ module.exports = class Coinzone {
     /* @func | init */
     this.init();
   }
+
+  /**
+   * @module candles
+   */
+  candles = require('./candles');
+
+  /**
+   * @module indicator 
+   */
+  indicator = require('./indicator');
 
   /**
    * @async
