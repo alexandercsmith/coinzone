@@ -1,6 +1,19 @@
 /**
  * @module indicator 
  */
+
+/*
+ Indicator {
+   Signal:     TradingSignals
+   indicators: Map
+   rates:      []
+   
+   get    (id) => Number|[Number]
+   set    (id, interval)
+   update (rate)
+ } 
+ */
+
 module.exports = {
   /**
    * @property { Object } TS

@@ -1,6 +1,21 @@
 /**
  * @module candles 
  */
+
+/*
+ Candles {
+   log: []
+   set ([input])
+   last   () => [Number]
+   low    () => [Number]
+   high   () => [Number]
+   open   () => [Number]
+   close  () => [Number]
+   volume () => [Number]
+   count  () =>  Number
+ } 
+ */
+
 module.exports = {
   /**
    * @property { Array } log

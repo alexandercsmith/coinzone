@@ -8,15 +8,12 @@ const websocket = require('ws');
 
 /*
  Coinbase {
-   static WS:          WebSocket
    static Granularity: { ... }
+   static WS:          WebSocket
 
-   #config: { ... }
-   #sign (url, method, data)
-
-   async get  (url, params)
-   async buy  (order)
-   async sell (order)
+   async get  (url, params) => []|{}
+   async buy  (order) => {}
+   async sell (order) => {}
  } 
  */
 
@@ -57,62 +54,38 @@ module.exports = class Coinbase {
      * @prop { Object } api
      */
     this.api = axios.create(production 
-      ? this.#config.api.production 
-      : this.#config.api.sandbox);
-
-    /**
-     * @prop { String } secret 
-     */
-    this.secret = production 
-      ? this.#config.secret.production 
-      : this.#config.secret.sandbox;
-  }
-
-
-  /**
-  * @private 
-  * @constant config
-  */
-  #config = {
-    api: {
-      production: {
+      ? {
         baseURL: "https://api.pro.coinbase.com",
         headers: {
           'CB-ACCESS-KEY': process.env.COINBASE_PRODUCTION_KEY,
           'CB-ACCESS-PASSPHRASE': process.env.COINBASE_PRODUCTION_PHRASE
         }
-      },
-      sandbox: {
+      } 
+      : {
         baseURL: "https://api-public.sandbox.pro.coinbase.com",
         headers: {
           'CB-ACCESS-KEY': process.env.COINBASE_SANDBOX_KEY,
           'CB-ACCESS-PASSPHRASE': process.env.COINBASE_SANDBOX_PHRASE
         }
-      }
-    },
-    secret: {
-      production: process.env.COINBASE_PRODUCTION_SECRET,
-      sandbox: process.env.COINBASE_SANDBOX_SECRET
-    }
-  }
+      });
 
-
-  /**
-  * @private
-  * @function #sign
-  * @param  { string } payload 
-  * @return { object }
-  */
-  #sign (url, method="get", data={}) {
-    const timestamp = Date.now() / 1000;
-    const initial   = timestamp + method.toUpperCase() + url;
-    const payload   = Object.entries(data).length > 0 ? initial+JSON.stringify(data) : initial;
-    const secret    = Buffer.from(this.secret, 'base64');
-    const signature = crypto.createHmac('sha256', secret).update(payload).digest('base64');
-    return { 
-      'CB-ACCESS-TIMESTAMP': timestamp, 
-      'CB-ACCESS-SIGN': signature 
-    }
+    this.api.interceptors.request.use(function (config) {
+      const timestamp = Date.now() / 1000;
+      const initial   = timestamp + config.method.toUpperCase() + config.url;
+      const payload   = !!config.data ? initial+JSON.stringify(config.data) : initial;
+      const secret    = Buffer.from(production 
+        ? process.env.COINBASE_PRODUCTION_SECRET 
+        : process.env.COINBASE_SANDBOX_SECRET, 
+        'base64');
+      const signature = crypto.createHmac('sha256', secret).update(payload).digest('base64');
+      // config[headers]
+      config.headers['CB-ACCESS-TIMESTAMP'] = timestamp;
+      config.headers['CB-ACCESS-SIGN']      = signature;
+      // return { config }
+      return config;
+    }, function (error) {
+      return Promise.reject(error);
+    });
   }
 
 
@@ -125,19 +98,11 @@ module.exports = class Coinbase {
   */
   async get (url, params={}) {
     try {
-      // @url
-      if (!url.startsWith('/')) { 
-        url = "/".concat(url); 
-      }
-      // @params
+      url = url.startsWith("/") ? url : "/".concat(url);
       if (Object.entries(params).length > 0) { 
         url = [url, new URLSearchParams(params).toString()].join('?'); 
       }
-      // @request
-      return await this.api.request({ 
-        url, 
-        headers: this.#sign(url) 
-      }).then(res => res.data);
+      return await this.api.get(url).then(res => res.data);
     } catch (e) {
       console.error('coinbase: get', url, e.message);
       throw new Error(e);

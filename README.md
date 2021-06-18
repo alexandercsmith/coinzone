@@ -13,7 +13,7 @@ $ npm install
 
 ### Testing
 
-```
+```bash
 # Run benchmark unit tests
 $ npm test
 ```

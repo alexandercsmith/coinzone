@@ -7,8 +7,10 @@ require('dotenv').config();
 /*
  Coinzone {
    static Coinbase: class Coinbase
-   static Strategy: class Strategy
+   candles: { ... }
+   indicator: { ... }
    async init ()
+   update     ([Number(6)])
  }
  */
 
