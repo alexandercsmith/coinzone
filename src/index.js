@@ -31,29 +31,30 @@ module.exports = class Coinzone {
 
 
   /**
-   * @static @class 
-   * @name Strategy 
+   * @module candles
    */
-  static Strategy = require('./strategy');
+  candles = require('./candles');
+
+
+  /**
+   * @module indicator 
+   */
+  indicator = require('./indicator');
 
 
   /**
    * @constructor
    * @param { Object } configuration
    */
-  constructor ({ 
-    base     ="BTC", 
-    quote    =[], 
-    strategy ={} 
-  }) {
+  constructor ({ base="BTC", config={} }) {
     /* @prop | base"" quote[] */
-    this.base  = base.toUpperCase();
-    this.quote = [...quote];
-
-    /* @instance | coinbase strategy */
+    this.base = base.toUpperCase();
+    /* @instance | coinbase */
     this.coinbase = new Coinzone.Coinbase();
-    this.strategy = new Coinzone.Strategy(strategy);
-
+    /* @instance | indicator */
+    for (const [id, interval] of Object.entries(config)) {
+      this.indicator.set(id, interval);
+    }
     /* @func | init */
     this.init();
   }
@@ -77,5 +78,14 @@ module.exports = class Coinzone {
       console.error('coinzone: init', e.message);
       throw new Error(e);
     }
+  }
+
+  /**
+   * @function update
+   * @param  { Array } log
+   */
+  update (log=[]) {
+    this.candles.set(log);
+    this.indicator.update( this.candles.last["close"]);
   }
 }

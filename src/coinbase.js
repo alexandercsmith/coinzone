@@ -106,7 +106,7 @@ module.exports = class Coinbase {
   #sign (url, method="get", data={}) {
     const timestamp = Date.now() / 1000;
     const initial   = timestamp + method.toUpperCase() + url;
-    const payload   = Object.entries(data).length > 0 ? initial + JSON.stringify(data) : initial;
+    const payload   = Object.entries(data).length > 0 ? initial+JSON.stringify(data) : initial;
     const secret    = Buffer.from(this.secret, 'base64');
     const signature = crypto.createHmac('sha256', secret).update(payload).digest('base64');
     return { 

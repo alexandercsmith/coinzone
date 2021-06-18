@@ -39,9 +39,10 @@ module.exports = {
    * @param  { Number } interval 3
    */
   set (id, interval=3) {
-    if (Object.keys(this.Signal).includes(id.toUpperCase())) {
-      this.indicators.set(id.toUpperCase(), new this.Signal[id.toUpperCase()](interval));
-      this.rates.forEach(rate => this.indicators.get(id.toUpperCase()).update(rate));
+    id = id.toUpperCase();
+    if (Object.keys(this.Signal).includes(id)) {
+      this.indicators.set(id, new this.Signal[id](interval));
+      this.rates.forEach(rate => this.indicators.get(id).update(rate));
     }
   },
 

@@ -12,6 +12,13 @@ const data = require('./candles/1_day.json');
 async function main () {
   try {
     const strategy = new app.Strategy({
+      // atr:  10,
+      dema: 10,
+      // dma:  10,
+      // ema:  15,
+      // macd: 10,
+      roc:  10,
+      rsi:  10,
       sma:  5,
       smma: 10
     }, data);
