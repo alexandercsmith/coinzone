@@ -31,7 +31,8 @@ module.exports = class Coinzone {
 
 
   /**
-   * @static @property { Object } utils
+   * @static 
+   * @module utils
    */
   static utils = require('./utils');
 
@@ -48,7 +49,7 @@ module.exports = class Coinzone {
     this.coinbase = new Coinzone.Coinbase();
 
     /* @instance | indicator */
-    this.indicator = new Coinzone.Indicator();
+    this.indicator = new Coinzone.Indicator(config);
 
     /* @func | init */
     this.init();

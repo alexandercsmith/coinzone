@@ -30,7 +30,7 @@ module.exports = class Book {
   }
 
 
-  /* --- {CandleSet} : [props] --- */
+  /* --- { Book } : [props] --- */
 
 
   /**
@@ -47,7 +47,7 @@ module.exports = class Book {
   logs = [];
 
 
-  /* --- {CandleSet} : [getters] --- */
+  /* --- { Book } : [getters] --- */
 
 
   /**
@@ -130,7 +130,7 @@ module.exports = class Book {
   }
 
 
-  /* --- {CandleSet} : [setters] --- */
+  /* --- { Book } : [setters] --- */
 
 
   /**

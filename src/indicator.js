@@ -21,17 +21,14 @@ module.exports = class Indicator {
     signals = [],
   }) {
     /* initialize { Book } models */
-    books.forEach(id => this.book = { 
-      id, 
-      input: data[id] || [] 
-    });
+    books.forEach(id => this.book = { id, input: data[id]||[] });
 
     /* initialize [Book] signals */
     signals.forEach(signal => this.signal = signal);
   }
 
 
-  /* --- {Indicator} : [props] --- */
+  /* --- { Indicator } : [props] --- */
 
 
   /**
@@ -41,7 +38,7 @@ module.exports = class Indicator {
   books = new Map();
 
 
-  /* --- {Indicator} : [getters] --- */
+  /* --- { Indicator } : [getters] --- */
 
 
   /**
@@ -128,7 +125,7 @@ module.exports = class Indicator {
   }
 
 
-  /* --- {Indicator} : [setters] --- */
+  /* --- { Indicator } : [setters] --- */
 
 
   /**
@@ -149,10 +146,11 @@ module.exports = class Indicator {
    * @param   { Object } opts id interval(3)
    */
   set signal ({ id, interval=3 }) {
-    id       = id.toUpperCase();
-    interval = interval >= 3 ? interval : 3;
     [...this.books[Symbol.iterator]()].forEach(([_, _book]) => {
-      _book.indicator = { id, interval };
+      _book.indicator = { 
+        id:       id.toUpperCase(), 
+        interval: interval >= 3 ? interval : 3 
+      };
     });
   }
 }
