@@ -1,71 +1,158 @@
 /**
- * @module indicator 
+ * @module Indicator
  */
-
-/*
- Indicator {
-   Indicator:  trading-signals
-   indicators: Map
-   rates:      []
-   
-   get    (id) => Number|[Number]
-   set    (id, interval)
-   update (rate)
- } 
- */
-
-module.exports = {
+module.exports = class Indicator {
   /**
-   * @property { Object } Indicator
+   * @static @class
+   * @name Book
+   * @interface Indicator
    */
-  Indicator: require('trading-signals'),
+  static Book = require('./book');
+
 
   /**
-   * @property { Map } indicators 
+   * @constructor 
+   * @param   { Object } data
+   * @interface Indicator
    */
-  indicators: new Map(),
+  constructor ({
+    books   = ["1m", "5m", "15m", "1h", "6h", "1d"],
+    data    = {},
+    signals = [],
+  }) {
+    /* initialize { Book } models */
+    books.forEach(id => this.book = { 
+      id, 
+      input: data[id] || [] 
+    });
+
+    /* initialize [Book] signals */
+    signals.forEach(signal => this.signal = signal);
+  }
+
+
+  /* --- {Indicator} : [props] --- */
+
 
   /**
-   * @property { Array } rates
+   * @property { Map } books 
+   * @interface  Indicator
    */
-  rates: [],
+  books = new Map();
+
+
+  /* --- {Indicator} : [getters] --- */
+
 
   /**
-   * @function get
-   * @param  { String } id 
-   * @return { Number }
+   * @function  results
+   * @type    { getter }
+   * @interface Indicator 
+   * @return  { Object<Object> }
    */
-  get (id="") {
-    if (!!id) {
-      return this.indicators.get(id.toUpperCase()).getResult().toFixed(2);
-    }
-    let result = {};
-    for (const [id, indicator] of this.indicators.entries()) {
-      result[id] = indicator.getResult().toFixed(2);
-    }
-    return result;
-  },
+  get results () {
+    return Object.fromEntries([...this.books[Symbol.iterator]()
+    ].map(([_id, _book]) => [_id, _book.results]));
+  }
+
 
   /**
-   * @function set
-   * @param  { String } id 
-   * @param  { Number } interval 3
+   * @function  lows 
+   * @type    { getter }
+   * @interface Indicator
+   * @return  { Object<Array> }
    */
-  set (id, interval=3) {
-    id = id.toUpperCase();
-    if (Object.keys(this.Signal).includes(id)) {
-      this.indicators.set(id, new this.Indicator[id](interval));
-      this.rates.forEach(rate => this.indicators.get(id).update(rate));
-    }
-  },
+  get lows () {
+    return Object.fromEntries([...this.books[Symbol.iterator]()
+    ].map(([_id, _book]) => [_id, _book.low]));
+  }
+
 
   /**
-   * @function update
-   * @param  { Number } input 
+   * @function  highs 
+   * @type    { getter }
+   * @interface Indicator
+   * @return  { Object<Array> }
    */
-  update (input) {
-    input = typeof input === "object" ? input["close"] : input;
-    this.rates.push(input);
-    this.indicators.forEach(indicator => indicator.update(input));
+  get highs () {
+    return Object.fromEntries([...this.books[Symbol.iterator]()
+    ].map(([_id, _book]) => [_id, _book.high]));
+  }
+
+
+  /**
+   * @function  opens 
+   * @type    { getter }
+   * @interface Indicator
+   * @return  { Object<Array> }
+   */
+  get opens () {
+    return Object.fromEntries([...this.books[Symbol.iterator]()
+    ].map(([_id, _book]) => [_id, _book.open]));
+  }
+
+
+  /**
+   * @function  closes 
+   * @type    { getter }
+   * @interface Indicator
+   * @return  { Object<Array> }
+   */
+  get closes () {
+    return Object.fromEntries([...this.books[Symbol.iterator]()
+    ].map(([_id, _book]) => [_id, _book.close]));
+  }
+
+
+  /**
+   * @function  volumes 
+   * @type    { getter }
+   * @interface Indicator
+   * @return  { Object<Array> }
+   */
+  get volumes () {
+    return Object.fromEntries([...this.books[Symbol.iterator]()
+    ].map(([_id, _book]) => [_id, _book.volume]));
+  }
+  
+
+  /**
+   * @function  counts 
+   * @type    { getter }
+   * @interface Indicator
+   * @return  { Object<Number> }
+   */
+  get counts () {
+    return Object.fromEntries([...this.books[Symbol.iterator]()
+    ].map(([_id, _book]) => [_id, _book.count]));
+  }
+
+
+  /* --- {Indicator} : [setters] --- */
+
+
+  /**
+   * @function  book
+   * @type    { setter }
+   * @interface Indicator
+   * @param   { Object } opts 
+   */
+  set book ({ id, input=[] }) {
+    this.books.set(id, new Indicator.Book(input));
+  }
+
+
+  /**
+   * @function  signal
+   * @type    { setter }
+   * @interface Indicator
+   * @param   { Object } opts id interval(3)
+   */
+  set signal ({ id, interval=3 }) {
+    id       = id.toUpperCase();
+    interval = interval >= 3 ? interval : 3;
+    [...this.books[Symbol.iterator]()].forEach(([_, _book]) => {
+      _book.indicator = { id, interval };
+    });
   }
 }

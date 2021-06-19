@@ -1,13 +1,12 @@
+require('dotenv').config();
 /**
  * @module src
  */
-require('dotenv').config();
 
 /*
  Coinzone {
-   static Coinbase: class Coinbase
-   candles:   { ... }
-   indicator: { ... }
+   static Coinbase:  class Coinbase
+   static Indicator: class Indicator
    async init ()
    update     ([Number(6)])
  }
@@ -23,6 +22,20 @@ module.exports = class Coinzone {
    */
   static Coinbase = require('./coinbase');
 
+
+  /**
+   * @static @class
+   * @name Indicator
+   */
+  static Indicator = require('./indicator');
+
+
+  /**
+   * @static @property { Object } utils
+   */
+  static utils = require('./utils');
+
+
   /**
    * @constructor
    * @param { Object } configuration
@@ -30,25 +43,18 @@ module.exports = class Coinzone {
   constructor ({ base="BTC", config={} }) {
     /* @prop | base"" quote[] */
     this.base = base.toUpperCase();
+
     /* @instance | coinbase */
     this.coinbase = new Coinzone.Coinbase();
+
     /* @instance | indicator */
-    for (const [id, interval] of Object.entries(config)) {
-      this.indicator.set(id, interval);
-    }
+    this.indicator = new Coinzone.Indicator();
+
     /* @func | init */
     this.init();
   }
 
-  /**
-   * @module candles
-   */
-  candles = require('./candles');
 
-  /**
-   * @module indicator 
-   */
-  indicator = require('./indicator');
 
   /**
    * @async
@@ -71,12 +77,10 @@ module.exports = class Coinzone {
     }
   }
 
+
   /**
    * @function update
    * @param  { Array } log
    */
-  update (log=[]) {
-    this.candles.set(log);
-    this.indicator.update( this.candles.last["close"]);
-  }
+  update (log=[]) {}
 }

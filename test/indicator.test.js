@@ -1,14 +1,7 @@
 /**
- * @module test/indicat
+ * @module test/signal
  */
-const candles   = require('../src/candles');
-const indicator = require('../src/indicator');
-
-
-/**
- * @static
- */
-const data = require('./candles');
+const Indicator = require('../src/indicator');
 
 
 /**
@@ -16,23 +9,18 @@ const data = require('./candles');
  */
 async function main () {
   try {
-    // load candle data individually
-    data["1h"].forEach(log => 
-      candles.set(log));
+    // initialize indicator with data
+    const indicator = new Indicator({
+      data: require('./candles'),
+      signals: [{  
+        id: "rsi", interval: 10 },{ 
+        id: "ema", interval: 20 },{ 
+        id: "sma", interval: 7 
+      }]
+    });
 
-    // add indicators
-    indicator.set('sma', 7);
-    indicator.set('smma', 10);
-
-    // add candle data to indicator 
-    candles.close.forEach(rate => 
-      indicator.update(rate));
-
-    // get results
-    console.log(
-      '\n=>', ' SMA', indicator.get('sma'), 
-      '\n=>', 'SMMA', indicator.get('smma'));
-      
+    // output
+    console.log('\n=>', indicator.results);
   } catch (e) {
     console.error(e.message);
     process.exit(1);

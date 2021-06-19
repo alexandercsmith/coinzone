@@ -1,7 +1,7 @@
 /**
  * @module test/index
  */
-const app = require('../src');
+const Coinzone = require('../src/app');
 
 
 /**
@@ -9,11 +9,12 @@ const app = require('../src');
  */
 async function main () {
   try {
-    const coinbase = new app.Coinbase();
+    const coinzone = new Coinzone();
 
-    const candles = await coinbase.get('profiles');
+    const initialize = await coinzone.loadCandles();
 
-    console.log('\n=>', candles, '\n');
+    console.log('\n=>', coinzone, '\n');
+
   } catch (e) {
     console.error(e);
     throw new Error(e);

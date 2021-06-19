@@ -9,9 +9,7 @@
   "scripts": {
     "start": "node index.js",
     "test": "node test/*.test.js",
-    "test:candles": "node test/candles.test.js",
-    "test:coinbase": "node test/coinbase.test.js",
-    "test:strategy": "node test/strategy.test.js"
+    "test:indicator": "node test/indicator.test.js"
   },
   "keywords": [
     "nodejs",
