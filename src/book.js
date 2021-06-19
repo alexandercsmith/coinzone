@@ -5,7 +5,7 @@ module.exports = class Book {
   /**
    * @static @module
    * @name Signal
-   * @interface Indicator
+   * @interface Book
    */
   static Signal = require('trading-signals');
 
@@ -13,7 +13,7 @@ module.exports = class Book {
   /**
    * @static @class
    * @name Candle
-   * @interface CandleSet
+   * @interface Book
    */
   static Candle = require('./candle');
 
@@ -68,7 +68,7 @@ module.exports = class Book {
    * @function  low
    * @type    { getter }
    * @interface Book
-   * @return  { Array }
+   * @return  { Array<Number> }
    */
   get low () { 
     return this.logs.map(_candle => _candle.low);    
@@ -79,7 +79,7 @@ module.exports = class Book {
    * @function  high 
    * @type    { getter }
    * @interface Book
-   * @return  { Array }
+   * @return  { Array<Number> }
    */
   get high () { 
     return this.logs.map(_candle => _candle.high);   
@@ -90,7 +90,7 @@ module.exports = class Book {
    * @function  open
    * @type    { getter }
    * @interface Book
-   * @return  { Array }
+   * @return  { Array<Number> }
    */
   get open () { 
     return this.logs.map(_candle => _candle.open);   
@@ -101,7 +101,7 @@ module.exports = class Book {
    * @function  close
    * @type    { getter }
    * @interface Book
-   * @return  { Array }
+   * @return  { Array<Number> }
    */
   get close () { 
     return this.logs.map(_candle => _candle.close);  
@@ -112,7 +112,7 @@ module.exports = class Book {
    * @function  volume
    * @type    { getter }
    * @interface Book
-   * @return  { Array }
+   * @return  { Array<Number> }
    */
   get volume () { 
     return this.logs.map(_candle => _candle.volume); 
@@ -123,7 +123,7 @@ module.exports = class Book {
    * @function  count
    * @type    { getter }
    * @interface Book
-   * @return  { Array }
+   * @return  { Array<Number> }
    */
   get count () { 
     return this.logs.map(_candle => _candle.count);  
