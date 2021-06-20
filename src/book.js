@@ -3,15 +3,15 @@
  */
 module.exports = class Book {
   /**
-   * @static @module TradingSignals
-   */
-  static Signal = require('trading-signals');
-
-
-  /**
    * @static @class @name Candle
    */
   static Candle = require('./candle');
+
+
+  /**
+   * @static @module TradingSignals
+   */
+  static Signal = require('trading-signals');
 
 
   /* --- { Book } : [props] --- */

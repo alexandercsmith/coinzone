@@ -8,8 +8,9 @@
   },
   "scripts": {
     "start": "node index.js",
-    "test": "node test/*.test.js",
-    "test:indicator": "node test/indicator.test.js"
+    "test": "mocha test/*.test.js",
+    "test:book": "mocha test/book.test.js",
+    "test:candle": "mocha test/candle.test.js"
   },
   "keywords": [
     "nodejs",
