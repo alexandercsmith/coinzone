@@ -61,12 +61,24 @@ const {
 } = Coinzone;
 
 // @instance
-const coinzone = new Coinzone({ base: "BTC", strategy: { ... } });
+const coinzone = new Coinzone({ 
+  base:  "BTC",
+  quote: "USD",
+  coinbase: {
+    key,
+    phrase,
+    secret,
+    sandbox
+  },
+  strategy: { 
+    ... 
+  } 
+});
 
 /* @instance { new Coinzone }
  coinzone {
-   base: "BTC",
-   quote: "USD",
+   base:     "BTC",
+   quote:    "USD",
    coinbase: { new Coinbase },
    strategy: { new Strategy }
  }
