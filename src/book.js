@@ -123,17 +123,17 @@ module.exports = class Book {
    * @type    { setter } 
    * @param   { Object } opts id interval
    */
-  set signal ({ id, interval=3 }) {
+  set signal (input={}) {
     /* validate id */
-    if (!Object.keys(Book.Signal).includes(id)) {
-      throw new Error('Invalid Indicator Id');
+    if (!Object.keys(Book.Signal).includes(input.id)) {
+      throw new Error('Invalid Signal Id');
     }
     /* new Signal */
-    const _signal = new Book.Signal[id](interval);
+    const _signal = new Book.Signal[input.id](input.interval);
     /* [close] => { Signal } */
     this.close.forEach(rate => _signal.update(rate));
     /* [signals] << { Signal } */
-    this.signals.set(id, _signal);
+    this.signals.set(input.id, _signal);
   }
 
 

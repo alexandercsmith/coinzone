@@ -4,7 +4,7 @@
 
 ---
 
-## TEST
+## Testing
 
 > Coinzone Benchmark Unit Testing
 

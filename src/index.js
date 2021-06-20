@@ -33,8 +33,12 @@ module.exports = class Coinzone {
     base     = "BTC", /* @type { String } */
     quote    = "USD", /* @type { String } */
     coinbase = {},    /* @type { Object } */
-    signals  = []     /* @type { Array }  */
+    strategy = {}     /* @type { Object }  */
   }) {
+    /* @debug */
+    if (process.env.NODE_ENV === 'development') {
+      console.log('>', 'initializing coinzone interface...');
+    }
     /**
      * @property { String } base
      * @property { String } quote
@@ -56,7 +60,7 @@ module.exports = class Coinzone {
     /**
      * @property { Strategy } strategy
      */
-    this.strategy = new Coinzone.Strategy(signals);
+    this.strategy = new Coinzone.Strategy(strategy);
   }
 
 
@@ -73,37 +77,40 @@ module.exports = class Coinzone {
   }
 
 
-  /* --- { Coinzone } : [async] --- */
-
-  
   /**
-   * @async
-   * @function init
+   * @function  results
+   * @type    { getter }
+   * @returns { Object }
    */
-  async init () {
-    try {
-      await this.loadCandles();
-      return;
-    } catch (e) {
-      console.error('coinzone: init', e.message);
-      throw new Error(e);
-    }
+  get results () {
+    return this.strategy.results;
   }
 
 
+  /* --- { Coinzone } : [async] --- */
+
+
   /**
    * @async
-   * @function loadCandles
+   * @function init
    * 
    */
-  async loadCandles () {
+  async init () {
+    /* @debug */
+    if (process.env.NODE_ENV === 'development') {
+      console.log('>', 'fetching coinzone initialization data... \n');
+    }
     try {
-      const url = this.indicator;
+      const url = `/products/${this.indicator}/candles`;
       for (const [granularity, book] of this.strategy.books.entries()) {
+        /* @debug */
+        if (process.env.NODE_ENV === 'development') {
+          console.log('>', 'loading', granularity, 'candles...');
+        }
         await this.coinbase.get(url, { granularity }).then(logs => 
           logs.forEach(log => book.update = log));
       }
-      return;
+      return true;
     } catch (e) {
       console.error('coinzone: loadCandles', e.message);
       throw new Error(e);

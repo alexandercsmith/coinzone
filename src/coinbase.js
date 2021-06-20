@@ -39,6 +39,11 @@ module.exports = class Coinbase {
    * @param { Object } initializers key phrase secret sandbox
    */
   constructor ({ key, phrase, secret, sandbox=true }) {
+    /* @debug */
+    if (process.env.NODE_ENV === 'development') {
+      console.log('>', 'initializing coinbase interface:', sandbox ? 'sandbox' : 'production');
+    }
+
     /**
      * @prop { Object } api
      */

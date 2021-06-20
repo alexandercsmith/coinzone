@@ -4,7 +4,7 @@
 
 ---
 
-## APPLICATION
+## Application
 
 > Coinzone Source Application Interface
 
