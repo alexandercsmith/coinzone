@@ -22,15 +22,6 @@ $ npm test
 
 ---
 
-## Development
-
-```bash
-# Start development server
-$ npm start
-```
-
----
-
 ## [`Coinzone`](./src/index.js)
 
 ```js
