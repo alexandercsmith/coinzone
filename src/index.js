@@ -9,16 +9,22 @@ module.exports = class Coinzone {
    * @interface Coinbase
    */
   static Coinbase = require('./coinbase');
+
+
   /**
    * @static
    * @interface Strategy
    */
   static Strategy = require('./strategy');
+
+
   /**
    * @static 
    * @module utils
    */
   static utils = require('./utils');
+
+
   /**
    * @constructor
    * @param { Object } configuration
@@ -33,13 +39,14 @@ module.exports = class Coinzone {
     if (process.env.NODE_ENV === 'development') {
       console.log('>', 'initializing coinzone interface...');
     }
+
     /**
      * @property { String } base
      * @property { String } quote
      */
     this.base  = base.toUpperCase();
     this.quote = quote.toUpperCase();
-    
+
     /**
      * @property { Class } coinbase
      */
@@ -50,12 +57,14 @@ module.exports = class Coinzone {
       phrase: process.env.COINBASE_SANDBOX_PHRASE,
       secret: process.env.COINBASE_SANDBOX_SECRET
     });
-    
+
     /**
      * @property { Class } strategy
      */
     this.strategy = new Coinzone.Strategy(strategy);
   }
+
+
   /**
    * @function indicator
    * @type   { getter }
@@ -64,6 +73,8 @@ module.exports = class Coinzone {
   get indicator () {
     return [this.base, this.quote].join('-');
   }
+
+  
   /**
    * @async
    * @function init

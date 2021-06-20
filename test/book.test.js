@@ -2,10 +2,14 @@
  * @module test/book
  */
 const { expect } = require('chai');
+
+
 /**
  * @class
  */
 const Book = require('../src/book');
+
+
 /**
  * @test
  */
@@ -28,6 +32,8 @@ describe('@class Book', () => {
       expect(Book).to.haveOwnProperty('Signal');
     });
   });
+
+
   /**
    * @instance
    */
@@ -36,6 +42,8 @@ describe('@class Book', () => {
      * @instance
      */
     const book = new Book();
+
+    
     /**
      * @property { Map } signals 
      */

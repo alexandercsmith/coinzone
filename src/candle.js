@@ -14,6 +14,8 @@ module.exports = class Candle {
     "close",  // [4]
     "volume"  // [5]
   ];
+
+  
   /**
    * @constructor
    * @param   { Array<Number> } input

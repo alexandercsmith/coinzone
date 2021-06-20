@@ -2,10 +2,14 @@
  * @module test/candle
  */
 const { expect } = require('chai');
+
+
 /**
  * @class
  */
 const Candle = require('../src/candle');
+
+
 /**
  * @test
  */
@@ -21,6 +25,8 @@ describe('@class Candle', () => {
       expect(Candle).to.haveOwnProperty('Model');
     });
   });
+
+
   /**
    * @instance
    */
@@ -34,6 +40,8 @@ describe('@class Candle', () => {
     const _open   = 50500.35;
     const _close  = 50750.45;
     const _volume = 44199.54;
+
+
     /**
      * @instance
      */
@@ -45,6 +53,8 @@ describe('@class Candle', () => {
       _close, 
       _volume
     ]);
+
+
     /**
      * @property { Number } time
      */

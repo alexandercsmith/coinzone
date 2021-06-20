@@ -5,6 +5,8 @@
 const axios     = require('axios');
 const crypto    = require('crypto');
 const websocket = require('ws');
+
+
 /**
  * @class @export { Coinbase }
  */
@@ -22,6 +24,8 @@ module.exports = class Coinbase {
     "6h":  21600,  /*  6 hour   */
     "1d":  86400   /*  1 day    */
   }
+
+
   /**
    * @static 
    * @function Websocket
@@ -74,6 +78,8 @@ module.exports = class Coinbase {
       return Promise.reject(error);
     });
   }
+
+
   /**
   * @async 
   * @function get
@@ -90,6 +96,8 @@ module.exports = class Coinbase {
       throw new Error(e);
     }
   }
+
+
   /**
   * @async
   * @function buy
@@ -104,6 +112,8 @@ module.exports = class Coinbase {
       throw new Error(e);
     }
   }
+
+
   /**
   * @async
   * @function sell
@@ -118,6 +128,8 @@ module.exports = class Coinbase {
       throw new Error(e);
     }
   }
+
+
   /**
    * @function _toQueryURL
    * @param  { String } url 

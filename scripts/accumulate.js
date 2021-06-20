@@ -15,6 +15,8 @@ module.exports = new class Accumulate extends require('../src') {
       }
     }).load();
   }
+
+  
   /**
    * @async @function init
    */

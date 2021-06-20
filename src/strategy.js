@@ -6,6 +6,8 @@ module.exports = class Strategy {
    * @static @class @name Book
    */
   static Book = require('./book');
+
+  
   /**
    * @constructor 
    * @param { Array<Object> } signals
@@ -23,6 +25,8 @@ module.exports = class Strategy {
       interval: interval >= 3 ? interval : 3 
     });
   }
+
+  
   /**
    * @property { Map } books 
    */
@@ -34,6 +38,8 @@ module.exports = class Strategy {
     ["6h",  new Strategy.Book()],
     ["1d",  new Strategy.Book()]
   ]);
+
+  
   /**
    * @function  results
    * @type    { getter }
@@ -45,6 +51,8 @@ module.exports = class Strategy {
     ].map(([_id, _book]) => 
       [_id, _book.results]));
   }
+
+  
   /**
    * @function  lows 
    * @type    { getter }
@@ -56,6 +64,8 @@ module.exports = class Strategy {
     ].map(([_id, _book]) => 
       [_id, _book.low]));
   }
+
+  
   /**
    * @function  highs 
    * @type    { getter }
@@ -67,6 +77,8 @@ module.exports = class Strategy {
     ].map(([_id, _book]) => 
       [_id, _book.high]));
   }
+
+  
   /**
    * @function  opens 
    * @type    { getter }
@@ -78,6 +90,8 @@ module.exports = class Strategy {
     ].map(([_id, _book]) => 
       [_id, _book.open]));
   }
+
+  
   /**
    * @function  closes 
    * @type    { getter }
@@ -89,6 +103,8 @@ module.exports = class Strategy {
     ].map(([_id, _book]) => 
       [_id, _book.close]));
   }
+
+  
   /**
    * @function  volumes 
    * @type    { getter }
@@ -100,6 +116,8 @@ module.exports = class Strategy {
     ].map(([_id, _book]) => 
       [_id, _book.volume]));
   }
+
+  
   /**
    * @function  counts 
    * @type    { getter }
@@ -111,6 +129,8 @@ module.exports = class Strategy {
     ].map(([_id, _book]) => 
       [_id, _book.count]));
   }
+
+  
   /**
    * @function  signal
    * @type    { setter }
@@ -122,6 +142,8 @@ module.exports = class Strategy {
       _book.signal = book;
     }
   }
+
+  
   /**
    * @function  update
    * @type    { setter }

@@ -6,18 +6,26 @@ module.exports = class Book {
    * @static @class @name Candle
    */
   static Candle = require('./candle');
+
+  
   /**
    * @static @module TradingSignals
    */
   static Signal = require('trading-signals');
+
+  
   /**
    * @property { Map } signals
    */
   signals = new Map();
+
+  
   /**
    * @property { Array } logs
    */
   logs = [];
+
+  
   /**
    * @function  results
    * @type    { getter }
@@ -29,6 +37,8 @@ module.exports = class Book {
     ].map(([_id, _signal]) => 
       [_id, _signal.getResult().toFixed(2)||'']));
   }
+
+  
   /**
    * @function  low
    * @type    { getter }
@@ -37,6 +47,8 @@ module.exports = class Book {
   get low () { 
     return this.logs.map(_candle => _candle.low);    
   }
+
+  
   /**
    * @function  high 
    * @type    { getter }
@@ -45,6 +57,8 @@ module.exports = class Book {
   get high () { 
     return this.logs.map(_candle => _candle.high);   
   }
+
+  
   /**
    * @function  open
    * @type    { getter }
@@ -53,6 +67,8 @@ module.exports = class Book {
   get open () { 
     return this.logs.map(_candle => _candle.open);   
   }
+
+  
   /**
    * @function  close
    * @type    { getter }
@@ -61,6 +77,8 @@ module.exports = class Book {
   get close () { 
     return this.logs.map(_candle => _candle.close);  
   }
+
+  
   /**
    * @function  volume
    * @type    { getter }
@@ -69,6 +87,8 @@ module.exports = class Book {
   get volume () { 
     return this.logs.map(_candle => _candle.volume); 
   }
+
+  
   /**
    * @function  count
    * @type    { getter }
@@ -77,6 +97,8 @@ module.exports = class Book {
   get count () { 
     return this.logs.map(_candle => _candle.count);  
   }
+
+  
   /**
    * @function  set
    * @type    { setter }
@@ -85,6 +107,8 @@ module.exports = class Book {
   set (input=[]) {
     this.logs.push(new Book.Candle(input));
   }
+
+  
   /**
    * @function  signal
    * @type    { setter } 
@@ -102,6 +126,8 @@ module.exports = class Book {
     /* @set [signals] << { Signal } */
     this.signals.set(input.id, _signal);
   }
+
+  
   /**
    * @function  update
    * @type    { setter } 

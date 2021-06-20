@@ -2,10 +2,14 @@
  * @module test/strategy
  */
 const { expect } = require('chai');
+
+
 /**
  * @class
  */
 const Strategy = require('../src/strategy');
+
+
 /**
  * @test
  */
