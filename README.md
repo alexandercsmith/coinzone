@@ -74,9 +74,9 @@ const coinzone = new Coinzone({
    strategy: { new Strategy },
 
    get indicator
+   get results
    
    async init ()
-   async loadCandles ()
  }
  */
 ```
