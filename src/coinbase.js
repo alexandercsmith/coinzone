@@ -4,7 +4,7 @@
  */
 const axios     = require('axios');
 const crypto    = require('crypto');
-const websocket = require('websocket');
+const websocket = require('ws');
 
 
 /**

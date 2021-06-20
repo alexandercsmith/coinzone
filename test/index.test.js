@@ -11,6 +11,8 @@ async function main () {
   console.time('> [duration]');
 
   try {
+    console.log('\n=>', Coinzone, '\n');
+
     const coinzone = new Coinzone({ 
       strategy: {
         signals: [{  

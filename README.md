@@ -29,6 +29,42 @@ $ npm start
 
 ---
 
+## [`Coinzone`](./src/index.js)
+
+```js
+// Coinzone static module interfaces
+const { 
+  Coinbase: { 
+    Granularity, 
+    WS 
+  }, 
+  Strategy: {
+    Book: {
+      Signal,
+      Candle
+    }
+  }, 
+  utils: {
+    combinations,
+    permutations,
+    powerSet
+  } 
+} = Coinzone;
+
+// Initialize Coinzone class instance
+const coinzone = new Coinzone({ base: "BTC", strategy: { ... } });
+
+/*
+ coinzone {
+   base: "BTC",
+   api: { Coinbase },
+   strategy: { Strategy }
+ }
+ */
+```
+
+---
+
 ## References
 
 > API Documentation and NPM Packages

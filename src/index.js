@@ -31,7 +31,7 @@ module.exports = class Coinzone {
    */
   constructor ({ base = "BTC", strategy = {} }) {
     this.base     = base.toUpperCase();
-    this.api      = new Coinzone.Client.Coinbase();
+    this.api      = new Coinzone.Coinbase();
     this.strategy = new Coinzone.Strategy(strategy);
   }
 
@@ -43,7 +43,7 @@ module.exports = class Coinzone {
   async init () {
     try {
       /* @instance */
-      // this.stream = new Coinzone.Client.Websocket({}, (data) => {});
+      // this.stream = Coinzone.Coinbase.WS({}, (data) => {});
       return;
     } catch (e) {
       console.error('coinzone: init', e.message);
