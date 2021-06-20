@@ -14,14 +14,16 @@ module.exports = class Candle {
     "close",  // [4]
     "volume"  // [5]
   ];
-
-  
   /**
    * @constructor
    * @param   { Array<Number> } input
    */
   constructor (input=[]) {
-    if (input.length !== 6) throw new Error('Invalid Candle Input');
+    /* @validate input */
+    if (input.length !== 6) { 
+      throw new Error('Invalid Candle Input');
+    }
+    /* @loop [this] */
     for (let i = 0; i < input.length; i++) { 
       this[Candle.Model[i]] = input[i]; 
     }

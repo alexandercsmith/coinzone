@@ -6,32 +6,18 @@ module.exports = class Book {
    * @static @class @name Candle
    */
   static Candle = require('./candle');
-
-
   /**
    * @static @module TradingSignals
    */
   static Signal = require('trading-signals');
-
-
-  /* --- { Book } : [props] --- */
-
-
   /**
    * @property { Map } signals
    */
   signals = new Map();
-
-
   /**
    * @property { Array } logs
    */
   logs = [];
-
-
-  /* --- { Book } : [getters] --- */
-
-
   /**
    * @function  results
    * @type    { getter }
@@ -43,8 +29,6 @@ module.exports = class Book {
     ].map(([_id, _signal]) => 
       [_id, _signal.getResult().toFixed(2)||'']));
   }
-
-
   /**
    * @function  low
    * @type    { getter }
@@ -53,8 +37,6 @@ module.exports = class Book {
   get low () { 
     return this.logs.map(_candle => _candle.low);    
   }
-
-
   /**
    * @function  high 
    * @type    { getter }
@@ -63,8 +45,6 @@ module.exports = class Book {
   get high () { 
     return this.logs.map(_candle => _candle.high);   
   }
-
-
   /**
    * @function  open
    * @type    { getter }
@@ -73,8 +53,6 @@ module.exports = class Book {
   get open () { 
     return this.logs.map(_candle => _candle.open);   
   }
-
-
   /**
    * @function  close
    * @type    { getter }
@@ -83,8 +61,6 @@ module.exports = class Book {
   get close () { 
     return this.logs.map(_candle => _candle.close);  
   }
-
-
   /**
    * @function  volume
    * @type    { getter }
@@ -93,8 +69,6 @@ module.exports = class Book {
   get volume () { 
     return this.logs.map(_candle => _candle.volume); 
   }
-
-
   /**
    * @function  count
    * @type    { getter }
@@ -103,11 +77,6 @@ module.exports = class Book {
   get count () { 
     return this.logs.map(_candle => _candle.count);  
   }
-
-
-  /* --- { Book } : [setters] --- */
-
-
   /**
    * @function  set
    * @type    { setter }
@@ -116,27 +85,23 @@ module.exports = class Book {
   set (input=[]) {
     this.logs.push(new Book.Candle(input));
   }
-
-
   /**
    * @function  signal
    * @type    { setter } 
-   * @param   { Object } opts id interval
+   * @param   { Object } input :id :interval
    */
   set signal (input={}) {
-    /* validate id */
+    /* @validate id */
     if (!Object.keys(Book.Signal).includes(input.id)) {
       throw new Error('Invalid Signal Id');
     }
-    /* new Signal */
+    /* @instance new Signal */
     const _signal = new Book.Signal[input.id](input.interval);
-    /* [close] => { Signal } */
+    /* @loop [close] => { Signal } */
     this.close.forEach(rate => _signal.update(rate));
-    /* [signals] << { Signal } */
+    /* @set [signals] << { Signal } */
     this.signals.set(input.id, _signal);
   }
-
-
   /**
    * @function  update
    * @type    { setter } 
@@ -145,11 +110,11 @@ module.exports = class Book {
   set update (input=[]) {
     /* new Candle */
     const _candle = new Book.Candle(input);
-    /* iterate { indicators } and update */
+    /* @loop [signals] & update */
     for (const [_, _signal] of this.signals.entries()) {
       _signal.update(_candle.close);
     }
-    /* logs[] << { Candle } */
+    /* @update [logs] */
     this.logs.push(_candle);
   }
 }

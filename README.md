@@ -30,28 +30,39 @@ const Coinzone = require('./src');
 
 // @static 
 const { 
+  /* @class { Coinbase } */
   Coinbase: { 
+    /* @object */
     Granularity, 
+    /* @function */
     Websocket
   }, 
+  /* @class { Strategy } */
   Strategy: {
+    /* @class { Book } */
     Book: {
+      /* @module */
       Signal: {
         ...(`trading-signals`)
       },
+      /* @class { Candle } */
       Candle: {
         Model
       }
     }
   }, 
+  /* @module */
   utils: {
+    /* @function */
     combinations,
+    /* @function */
     permutations,
+    /* @function */
     powerSet
   } 
 } = Coinzone;
 
-// @instance
+// @instance { Coinzone }
 const coinzone = new Coinzone({ 
   base:  "BTC",
   quote: "USD",
@@ -66,6 +77,11 @@ const coinzone = new Coinzone({
   } 
 });
 
+// @instance { Coinzone } - load initial candle data in parallel
+const coinzoneWithLoad = new Coinzone({
+  ...
+}).load();
+
 /* @instance { new Coinzone }
  coinzone {
    base:     "BTC",
@@ -73,8 +89,8 @@ const coinzone = new Coinzone({
    coinbase: { new Coinbase },
    strategy: { new Strategy },
 
-   get indicator
-   get results
+   get indicator // => String
+   get results   // => Object
    
    async init ()
  }

@@ -9,22 +9,16 @@ module.exports = class Coinzone {
    * @interface Coinbase
    */
   static Coinbase = require('./coinbase');
-
-
   /**
    * @static
    * @interface Strategy
    */
   static Strategy = require('./strategy');
-
-
   /**
    * @static 
    * @module utils
    */
   static utils = require('./utils');
-
-
   /**
    * @constructor
    * @param { Object } configuration
@@ -47,7 +41,7 @@ module.exports = class Coinzone {
     this.quote = quote.toUpperCase();
     
     /**
-     * @property { Coinbase } coinbase
+     * @property { Class } coinbase
      */
     this.coinbase = new Coinzone.Coinbase(Object.entries(coinbase).length > 0 
     ? coinbase 
@@ -58,15 +52,10 @@ module.exports = class Coinzone {
     });
     
     /**
-     * @property { Strategy } strategy
+     * @property { Class } strategy
      */
     this.strategy = new Coinzone.Strategy(strategy);
   }
-
-
-  /* --- { Coinzone } : [getters] --- */
-
-
   /**
    * @function indicator
    * @type   { getter }
@@ -75,41 +64,30 @@ module.exports = class Coinzone {
   get indicator () {
     return [this.base, this.quote].join('-');
   }
-
-
-  /**
-   * @function  results
-   * @type    { getter }
-   * @returns { Object }
-   */
-  get results () {
-    return this.strategy.results;
-  }
-
-
-  /* --- { Coinzone } : [async] --- */
-
-
   /**
    * @async
    * @function init
-   * 
+   * @return { Boolean }
    */
-  async init () {
+  async load () {
     /* @debug */
     if (process.env.NODE_ENV === 'development') {
       console.log('>', 'fetching coinzone initialization data... \n');
     }
     try {
+      /* @var url */
       const url = `/products/${this.indicator}/candles`;
+      /* @loop strategy[books] */
       for (const [granularity, book] of this.strategy.books.entries()) {
         /* @debug */
         if (process.env.NODE_ENV === 'development') {
           console.log('>', 'loading', granularity, 'candles...');
         }
+        /* @request GET */
         await this.coinbase.get(url, { granularity }).then(logs => 
           logs.forEach(log => book.update = log));
       }
+      /* @return */
       return true;
     } catch (e) {
       console.error('coinzone: loadCandles', e.message);

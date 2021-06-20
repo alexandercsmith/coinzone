@@ -2,19 +2,14 @@
  * @module test/coinbase
  */
 const { expect } = require('chai');
-
-
 /**
  * @class
  */
 const Coinbase = require('../src/coinbase');
-
-
 /**
  * @test
  */
 describe('@class Coinbase', () => {
-
   /**
    * @static
    */
@@ -25,7 +20,6 @@ describe('@class Coinbase', () => {
     it('should have @property #Granularity', () => {
       expect(Coinbase).to.haveOwnProperty('Granularity');
     });
-
     /**
      * @property { Function } Websocket
      */

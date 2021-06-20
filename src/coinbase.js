@@ -5,8 +5,6 @@
 const axios     = require('axios');
 const crypto    = require('crypto');
 const websocket = require('ws');
-
-
 /**
  * @class @export { Coinbase }
  */
@@ -24,16 +22,12 @@ module.exports = class Coinbase {
     "6h":  21600,  /*  6 hour   */
     "1d":  86400   /*  1 day    */
   }
-
-
   /**
    * @static 
    * @function Websocket
    * @return { WebSocket }
    */
   static Websocket = () => new websocket("wss://ws-feed.pro.coinbase.com");
-
-
   /**
    * @constructor
    * @param { Object } initializers key phrase secret sandbox
@@ -43,7 +37,6 @@ module.exports = class Coinbase {
     if (process.env.NODE_ENV === 'development') {
       console.log('>', 'initializing coinbase interface:', sandbox ? 'sandbox' : 'production');
     }
-
     /**
      * @prop { Object } api
      */
@@ -56,14 +49,12 @@ module.exports = class Coinbase {
         'CB-ACCESS-PASSPHRASE': phrase
       }
     });
-    
     /**
      * @instance
      */
     this.api.interceptors.request.use(function (config) {
       // headers['CB-ACCESS-TIMESTAMP']
       const timestamp = Date.now() / 1000;
-      
       // headers['CB-ACCESS-SIGN']
       const signature = crypto.createHmac('sha256', 
         Buffer.from(secret, 'base64'))
@@ -74,22 +65,15 @@ module.exports = class Coinbase {
         (!!config.data ? JSON.stringify(config.data) : '')
       ].join(''))
       .digest('base64');
-
       // config[headers]
       config.headers['CB-ACCESS-TIMESTAMP'] = timestamp;
       config.headers['CB-ACCESS-SIGN']      = signature;
-
       // return { config }
       return config;
     }, function (error) {
       return Promise.reject(error);
     });
   }
-
-
-  /* --- { Coinbase } : [GET] --- */
-
-
   /**
   * @async 
   * @function get
@@ -105,12 +89,7 @@ module.exports = class Coinbase {
       console.error('coinbase: get', url, e.message);
       throw new Error(e);
     }
-  };
-
-
-  /* --- { Coinbase } : [POST] --- */
-
-
+  }
   /**
   * @async
   * @function buy
@@ -125,8 +104,6 @@ module.exports = class Coinbase {
       throw new Error(e);
     }
   }
-
-
   /**
   * @async
   * @function sell
@@ -141,11 +118,6 @@ module.exports = class Coinbase {
       throw new Error(e);
     }
   }
-
-
-  /* --- { Coinbase } : [Helpers] */
-
-
   /**
    * @function _toQueryURL
    * @param  { String } url 

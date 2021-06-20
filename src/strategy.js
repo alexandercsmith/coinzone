@@ -6,8 +6,6 @@ module.exports = class Strategy {
    * @static @class @name Book
    */
   static Book = require('./book');
-
-
   /**
    * @constructor 
    * @param { Array<Object> } signals
@@ -17,18 +15,14 @@ module.exports = class Strategy {
     if (process.env.NODE_ENV === 'development') {
       console.log('>', 'initializing strategy interface...');
     }
+
     /* initialize [Map:books] => signals */
     Object.entries(strategy).forEach(([id, interval]) => 
-      this.signal = { 
-        id: String(id).toUpperCase(), 
-        interval: interval >= 3 ? interval : 3 
-      });
+    this.signal = { 
+      id: String(id).toUpperCase(), 
+      interval: interval >= 3 ? interval : 3 
+    });
   }
-
-
-  /* --- { Strategy } : [props] --- */
-
-
   /**
    * @property { Map } books 
    */
@@ -40,11 +34,6 @@ module.exports = class Strategy {
     ["6h",  new Strategy.Book()],
     ["1d",  new Strategy.Book()]
   ]);
-
-
-  /* --- { Strategy } : [getters] --- */
-
-
   /**
    * @function  results
    * @type    { getter }
@@ -56,8 +45,6 @@ module.exports = class Strategy {
     ].map(([_id, _book]) => 
       [_id, _book.results]));
   }
-
-
   /**
    * @function  lows 
    * @type    { getter }
@@ -69,8 +56,6 @@ module.exports = class Strategy {
     ].map(([_id, _book]) => 
       [_id, _book.low]));
   }
-
-
   /**
    * @function  highs 
    * @type    { getter }
@@ -82,8 +67,6 @@ module.exports = class Strategy {
     ].map(([_id, _book]) => 
       [_id, _book.high]));
   }
-
-
   /**
    * @function  opens 
    * @type    { getter }
@@ -95,8 +78,6 @@ module.exports = class Strategy {
     ].map(([_id, _book]) => 
       [_id, _book.open]));
   }
-
-
   /**
    * @function  closes 
    * @type    { getter }
@@ -108,8 +89,6 @@ module.exports = class Strategy {
     ].map(([_id, _book]) => 
       [_id, _book.close]));
   }
-
-
   /**
    * @function  volumes 
    * @type    { getter }
@@ -121,8 +100,6 @@ module.exports = class Strategy {
     ].map(([_id, _book]) => 
       [_id, _book.volume]));
   }
-  
-
   /**
    * @function  counts 
    * @type    { getter }
@@ -134,29 +111,24 @@ module.exports = class Strategy {
     ].map(([_id, _book]) => 
       [_id, _book.count]));
   }
-
-
-  /* --- { Strategy } : [setters] --- */
-
-
   /**
    * @function  signal
    * @type    { setter }
    * @param   { Object } opts id interval(3)
    */
   set signal (book={}) {
+    /* @loops [books] */
     for (const [_, _book] of this.books.entries()) {
       _book.signal = book;
     }
   }
-
-
   /**
    * @function  update
    * @type    { setter }
    * @param   { Array<Number> } input
    */
   set update (input=[]) {
+    /* @loop [books] */
     for (const [_, _book] of this.books.entries()) {
       _book.update = input;
     }

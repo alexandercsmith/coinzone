@@ -2,19 +2,14 @@
  * @module test/candle
  */
 const { expect } = require('chai');
-
-
 /**
  * @class
  */
 const Candle = require('../src/candle');
-
-
 /**
  * @test
  */
 describe('@class Candle', () => {
-
   /**
    * @static
    */
@@ -26,7 +21,6 @@ describe('@class Candle', () => {
       expect(Candle).to.haveOwnProperty('Model');
     });
   });
-
   /**
    * @instance
    */
@@ -40,7 +34,6 @@ describe('@class Candle', () => {
     const _open   = 50500.35;
     const _close  = 50750.45;
     const _volume = 44199.54;
-
     /**
      * @instance
      */
@@ -52,42 +45,36 @@ describe('@class Candle', () => {
       _close, 
       _volume
     ]);
-
     /**
      * @property { Number } time
      */
     it('should have @property #time', () => {
       expect(candle.time).to.equal(_time);
     });
-
     /**
      * @property { Number } low
      */
     it('should have @property #low', () => {
       expect(candle.low).to.equal(_low);
     });
-
     /**
      * @property { Number } high
      */
     it('should have @property #high', () => {
       expect(candle.high).to.equal(_high);
     });
-
     /**
      * @property { Number } open
      */
     it('should have @property #open', () => {
       expect(candle.open).to.equal(_open);
     });
-
     /**
      * @property { Number } close
      */
     it('should have @property #close', () => {
       expect(candle.close).to.equal(_close);
     });
-
     /**
      * @property { Number } volume
      */

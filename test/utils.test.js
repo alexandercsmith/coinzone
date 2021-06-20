@@ -2,14 +2,10 @@
  * @module test/utils
  */
 const { expect } = require('chai');
-
-
 /**
  * @class
  */
 const utils = require('../src/utils');
-
-
 /**
  * @test
  */
@@ -20,14 +16,12 @@ describe('@module utils', () => {
   describe('@function combinations', () => {
 
   });
-
   /**
    * @function permutations
    */
   describe('@function permutations', () => {
 
   });
-
   /**
    * @function powerSet
    */
