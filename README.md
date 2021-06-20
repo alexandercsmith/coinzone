@@ -36,7 +36,7 @@ $ npm start
 const { 
   Coinbase: { 
     Granularity, 
-    WS 
+    Websocket
   }, 
   Strategy: {
     Book: {

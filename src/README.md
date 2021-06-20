@@ -20,4 +20,7 @@ const coinbase = new Coinbase();
 
 // Initialize `production` Coinbase class
 const coinbase = new Coinbase(true);
+
+// Initialize Coinbase Websocket client instance
+const websocket = Coinbase.Websocket();
 ```

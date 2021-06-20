@@ -28,10 +28,10 @@ module.exports = class Coinbase {
 
   /**
    * @static 
-   * @function WS
+   * @function Websocket
    * @return { WebSocket }
    */
-  static WS = () => new websocket("wss://ws-feed.pro.coinbase.com");
+  static Websocket = () => new websocket("wss://ws-feed.pro.coinbase.com");
 
 
   /**

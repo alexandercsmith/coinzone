@@ -43,7 +43,7 @@ module.exports = class Coinzone {
   async init () {
     try {
       /* @instance */
-      // this.stream = Coinzone.Coinbase.WS({}, (data) => {});
+      // this.stream = Coinzone.Coinbase.Websocket({}, (data) => {});
       return;
     } catch (e) {
       console.error('coinzone: init', e.message);
