@@ -1,13 +1,15 @@
 /**
  * @module test/signal
  */
-const Indicator = require('../src/indicator');
+const Indicator = require('../src/strategy');
 
 
 /**
  * @async @function main 
  */
 async function main () {
+  console.time('> [duration]');
+
   try {
     // initialize indicator with data
     const indicator = new Indicator({
@@ -20,15 +22,20 @@ async function main () {
     });
 
     // output
-    console.log('\n=>', indicator.results);
+    console.log('\n=>', indicator.results, '\n');
   } catch (e) {
     console.error(e.message);
     process.exit(1);
   }
+
+  console.timeEnd('> [duration]');
 }
 
 
 /**
  * @instance 
  */
-main().then(() => process.exit(0));
+main().then(() => { 
+  console.log('\n>', '[complete] \n');
+  process.exit(0) 
+});

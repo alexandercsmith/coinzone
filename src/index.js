@@ -1,33 +1,21 @@
 require('dotenv').config();
 /**
  * @module src
- */
-
-/*
- Coinzone {
-   static Coinbase:  class Coinbase
-   static Indicator: class Indicator
-   async init ()
-   update     ([Number(6)])
- }
- */
-
-/**
  * @class @export { Coinzone }
  */
 module.exports = class Coinzone {
   /**
-   * @static @class 
-   * @name Coinbase
+   * @static
+   * @interface Coinbase
    */
   static Coinbase = require('./coinbase');
 
 
   /**
-   * @static @class
-   * @name Indicator
+   * @static
+   * @interface Strategy
    */
-  static Indicator = require('./indicator');
+  static Strategy = require('./strategy');
 
 
   /**
@@ -41,20 +29,11 @@ module.exports = class Coinzone {
    * @constructor
    * @param { Object } configuration
    */
-  constructor ({ base="BTC", config={} }) {
-    /* @prop | base"" quote[] */
-    this.base = base.toUpperCase();
-
-    /* @instance | coinbase */
-    this.coinbase = new Coinzone.Coinbase();
-
-    /* @instance | indicator */
-    this.indicator = new Coinzone.Indicator(config);
-
-    /* @func | init */
-    this.init();
+  constructor ({ base = "BTC", strategy = {} }) {
+    this.base     = base.toUpperCase();
+    this.api      = new Coinzone.Client.Coinbase();
+    this.strategy = new Coinzone.Strategy(strategy);
   }
-
 
 
   /**
@@ -64,24 +43,11 @@ module.exports = class Coinzone {
   async init () {
     try {
       /* @instance */
-      this.wss = Coinzone.Coinbase.WS();
-
-      /* @event | open */
-      this.wss.on('open', function open () { });
-
-      /* @event | message */
-      this.wss.on('message', function incoming (data) { });
-      
+      // this.stream = new Coinzone.Client.Websocket({}, (data) => {});
+      return;
     } catch (e) {
       console.error('coinzone: init', e.message);
       throw new Error(e);
     }
   }
-
-
-  /**
-   * @function update
-   * @param  { Array } log
-   */
-  update (log=[]) {}
 }

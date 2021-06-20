@@ -5,15 +5,20 @@ module.exports = class Candle {
   /**
    * @static @constant Schema
    * @type    { Array<String> }
-   * @interface Candle
    */
-  static Schema = ["time", "low", "high", "open", "close", "volume"];
+  static Schema = [
+    "time",   // [0]
+    "low",    // [1]
+    "high",   // [2]
+    "open",   // [3]
+    "close",  // [4]
+    "volume"  // [5]
+  ];
 
   
   /**
    * @constructor
    * @param   { Array<Number> } input
-   * @interface Candle
    */
   constructor (input=[]) {
     if (input.length !== 6) throw new Error('Invalid Candle Input');

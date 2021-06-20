@@ -1,28 +1,40 @@
 /**
  * @module test/index
  */
-const Coinzone = require('../src/app');
+const Coinzone = require('../src');
 
 
 /**
  * @async @function main 
  */
 async function main () {
+  console.time('> [duration]');
+
   try {
-    const coinzone = new Coinzone();
-
-    const initialize = await coinzone.loadCandles();
-
+    const coinzone = new Coinzone({ 
+      strategy: {
+        signals: [{  
+          id: "rsi", interval: 10 },{ 
+          id: "ema", interval: 20 },{ 
+          id: "sma", interval: 7 
+        }]
+      } 
+    });
+    
     console.log('\n=>', coinzone, '\n');
-
   } catch (e) {
     console.error(e);
     throw new Error(e);
   }
+
+  console.timeEnd('> [duration]');
 }
 
 
 /**
  * @instance 
  */
-main().then(() => process.exit(0));
+main().then(() => {
+  console.log('\n>', '[complete] \n');
+  process.exit(0) 
+});

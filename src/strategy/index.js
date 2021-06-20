@@ -1,11 +1,9 @@
 /**
- * @module Indicator
+ * @module Strategy
  */
-module.exports = class Indicator {
+module.exports = class Strategy {
   /**
-   * @static @class
-   * @name Book
-   * @interface Indicator
+   * @static @class @name Book
    */
   static Book = require('./book');
 
@@ -13,17 +11,16 @@ module.exports = class Indicator {
   /**
    * @constructor 
    * @param   { Object } data
-   * @interface Indicator
    */
   constructor ({
     books   = ["1m", "5m", "15m", "1h", "6h", "1d"],
     data    = {},
     signals = [],
   }) {
-    /* initialize { Book } models */
+    /* initialize { Book } models => indicator(Map:books) */
     books.forEach(id => this.book = { id, input: data[id]||[] });
 
-    /* initialize [Book] signals */
+    /* initialize indicator(Map:books] signals */
     signals.forEach(signal => this.signal = signal);
   }
 
@@ -33,7 +30,6 @@ module.exports = class Indicator {
 
   /**
    * @property { Map } books 
-   * @interface  Indicator
    */
   books = new Map();
 
@@ -44,7 +40,6 @@ module.exports = class Indicator {
   /**
    * @function  results
    * @type    { getter }
-   * @interface Indicator 
    * @return  { Object<Object> }
    */
   get results () {
@@ -56,7 +51,6 @@ module.exports = class Indicator {
   /**
    * @function  lows 
    * @type    { getter }
-   * @interface Indicator
    * @return  { Object<Array> }
    */
   get lows () {
@@ -68,7 +62,6 @@ module.exports = class Indicator {
   /**
    * @function  highs 
    * @type    { getter }
-   * @interface Indicator
    * @return  { Object<Array> }
    */
   get highs () {
@@ -80,7 +73,6 @@ module.exports = class Indicator {
   /**
    * @function  opens 
    * @type    { getter }
-   * @interface Indicator
    * @return  { Object<Array> }
    */
   get opens () {
@@ -92,7 +84,6 @@ module.exports = class Indicator {
   /**
    * @function  closes 
    * @type    { getter }
-   * @interface Indicator
    * @return  { Object<Array> }
    */
   get closes () {
@@ -104,7 +95,6 @@ module.exports = class Indicator {
   /**
    * @function  volumes 
    * @type    { getter }
-   * @interface Indicator
    * @return  { Object<Array> }
    */
   get volumes () {
@@ -116,7 +106,6 @@ module.exports = class Indicator {
   /**
    * @function  counts 
    * @type    { getter }
-   * @interface Indicator
    * @return  { Object<Number> }
    */
   get counts () {
@@ -131,18 +120,16 @@ module.exports = class Indicator {
   /**
    * @function  book
    * @type    { setter }
-   * @interface Indicator
    * @param   { Object } opts 
    */
   set book ({ id, input=[] }) {
-    this.books.set(id, new Indicator.Book(input));
+    this.books.set(id, new Strategy.Book(input));
   }
 
 
   /**
    * @function  signal
    * @type    { setter }
-   * @interface Indicator
    * @param   { Object } opts id interval(3)
    */
   set signal ({ id, interval=3 }) {

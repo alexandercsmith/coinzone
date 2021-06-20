@@ -1,25 +1,14 @@
 /**
  * @module coinbase
- * @desc   coinbase pro api interface class module
+ * @desc   coinbase pro api rest http interface class module
  */
 const axios     = require('axios');
 const crypto    = require('crypto');
-const websocket = require('ws');
+const websocket = require('websocket');
 
-/*
- Coinbase {
-   static Granularity: { ... }
-   static WS:          WebSocket
-
-   async get  (url, params) => []|{}
-   async buy  (order) => {}
-   async sell (order) => {}
- } 
- */
 
 /**
- * @class 
- * @export { Coinbase }
+ * @class @export { Coinbase }
  */
 module.exports = class Coinbase {
   /**
@@ -28,21 +17,21 @@ module.exports = class Coinbase {
    * @type    { Object }
    */
   static Granularity = {
-    "1m":  60,     /*  1 (minute) */
-    "5m":  300,    /*  5 (minute) */
-    "15m": 900,    /* 15 (minute) */
-    "1h":  3600,   /*  1 (hour)   */
-    "6h":  21600,  /*  6 (hour)   */
-    "1d":  86400   /*  1 (day)    */
+    "1m":  60,     /*  1 minute */
+    "5m":  300,    /*  5 minute */
+    "15m": 900,    /* 15 minute */
+    "1h":  3600,   /*  1 hour   */
+    "6h":  21600,  /*  6 hour   */
+    "1d":  86400   /*  1 day    */
   }
 
-  
+
   /**
    * @static 
-   * @interface WS
-   * @type    { WebSocket }
+   * @function WS
+   * @return { WebSocket }
    */
-  static WS = () => new websocket('wss://ws-feed.pro.coinbase.com');
+  static WS = () => new websocket("wss://ws-feed.pro.coinbase.com");
 
 
   /**
@@ -99,6 +88,9 @@ module.exports = class Coinbase {
   }
 
 
+  /* --- [GET] --- */
+
+
   /**
   * @async 
   * @function get
@@ -108,16 +100,16 @@ module.exports = class Coinbase {
   */
   async get (url, params={}) {
     try {
-      url = url.startsWith("/") ? url : "/".concat(url);
-      if (Object.entries(params).length > 0) { 
-        url = [url, new URLSearchParams(params).toString()].join('?'); 
-      }
-      return await this.api.get(url).then(res => res.data);
+      return await this.api.get( 
+        this._toQueryURL(url, params)).then(res => res.data);
     } catch (e) {
       console.error('coinbase: get', url, e.message);
       throw new Error(e);
     }
   };
+
+
+  /* --- [POST] --- */
 
 
   /**
@@ -149,5 +141,20 @@ module.exports = class Coinbase {
       console.error('coinbase: sell', e.message);
       throw new Error(e);
     }
+  }
+
+
+  /**
+   * @function _toQueryURL
+   * @param  { String } url 
+   * @param  { Object } params {}
+   * @return { String }
+   */
+  _toQueryURL (url, params={}) {
+    url = url.startsWith("/") ? url : "/".concat(url);
+    if (Object.entries(params).length > 0) { 
+      url = [url, new URLSearchParams(params).toString()].join('?'); 
+    }
+    return url;
   }
 }

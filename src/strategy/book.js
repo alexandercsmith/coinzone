@@ -3,17 +3,13 @@
  */
 module.exports = class Book {
   /**
-   * @static @module
-   * @name Signal
-   * @interface Book
+   * @static @module TradingSignals
    */
   static Signal = require('trading-signals');
 
 
   /**
-   * @static @class
-   * @name Candle
-   * @interface Book
+   * @static @class @name Candle
    */
   static Candle = require('./candle');
 
@@ -21,7 +17,6 @@ module.exports = class Book {
   /**
    * @constructor
    * @param   { Array<Array> } data 
-   * @interface Book
    */
   constructor (data=[]) {
     for (const i in data) { 
@@ -35,14 +30,12 @@ module.exports = class Book {
 
   /**
    * @property { Map } indicators
-   * @interface  Book
    */
   indicators = new Map();
 
 
   /**
    * @property { Array } logs
-   * @interface  Book
    */
   logs = [];
 
@@ -53,7 +46,6 @@ module.exports = class Book {
   /**
    * @function  results
    * @type    { getter }
-   * @interface Book
    * @return  { Object<Number> }
    */
   get results () {
@@ -67,7 +59,6 @@ module.exports = class Book {
   /**
    * @function  low
    * @type    { getter }
-   * @interface Book
    * @return  { Array<Number> }
    */
   get low () { 
@@ -78,7 +69,6 @@ module.exports = class Book {
   /**
    * @function  high 
    * @type    { getter }
-   * @interface Book
    * @return  { Array<Number> }
    */
   get high () { 
@@ -89,7 +79,6 @@ module.exports = class Book {
   /**
    * @function  open
    * @type    { getter }
-   * @interface Book
    * @return  { Array<Number> }
    */
   get open () { 
@@ -100,7 +89,6 @@ module.exports = class Book {
   /**
    * @function  close
    * @type    { getter }
-   * @interface Book
    * @return  { Array<Number> }
    */
   get close () { 
@@ -111,7 +99,6 @@ module.exports = class Book {
   /**
    * @function  volume
    * @type    { getter }
-   * @interface Book
    * @return  { Array<Number> }
    */
   get volume () { 
@@ -122,7 +109,6 @@ module.exports = class Book {
   /**
    * @function  count
    * @type    { getter }
-   * @interface Book
    * @return  { Array<Number> }
    */
   get count () { 
@@ -137,7 +123,6 @@ module.exports = class Book {
    * @function  set
    * @type    { setter }
    * @param   { Array } input 
-   * @interface Book
    */
   set (input=[]) {
     this.logs.push(new Book.Candle(input));
@@ -147,7 +132,6 @@ module.exports = class Book {
   /**
    * @function  indicator
    * @type    { setter } 
-   * @interface Book
    * @param   { Object } opts id interval
    */
   set indicator ({ id, interval=3 }) {
@@ -161,7 +145,6 @@ module.exports = class Book {
   /**
    * @function  update
    * @type    { setter } 
-   * @interface Book
    * @param   { Array } input 
    */
   set update (input=[]) {
