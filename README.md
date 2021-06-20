@@ -71,7 +71,12 @@ const coinzone = new Coinzone({
    base:     "BTC",
    quote:    "USD",
    coinbase: { new Coinbase },
-   strategy: { new Strategy }
+   strategy: { new Strategy },
+
+   get indicator
+   
+   async init ()
+   async loadCandles ()
  }
  */
 ```
@@ -89,6 +94,13 @@ const coinzone = new Coinzone({
 ### Packages
 
 * [_npm_: `axios`](https://npmjs.com/package/axios)
+* [_npm_: `chai`](https://npmjs.com/package/chai)
 * [_npm_: `dotenv`](https://npmjs.com/package/dotenv)
+* [_npm_: `mocha`](https://npmjs.com/package/mocha)
 * [_npm_: `trading-signals`](https://npmjs.com/package/trading-signals)
 * [_npm_: `ws`](https://npmjs.com/package/ws)
+
+### Testing
+
+* [Chai.js](https://chaijs.com)
+* [Mocha.js](https://mochajs.org)

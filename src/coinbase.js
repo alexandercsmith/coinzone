@@ -60,7 +60,8 @@ module.exports = class Coinbase {
       const timestamp = Date.now() / 1000;
       
       // headers['CB-ACCESS-SIGN']
-      const signature = crypto.createHmac('sha256', Buffer.from(secret, 'base64'))
+      const signature = crypto.createHmac('sha256', 
+        Buffer.from(secret, 'base64'))
       .update([
         timestamp, 
         config.method.toUpperCase(), 

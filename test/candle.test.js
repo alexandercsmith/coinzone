@@ -44,7 +44,7 @@ describe('@class Candle', () => {
     /**
      * @instance
      */
-    const candle  = new Candle([
+    const candle = new Candle([
       _time, 
       _low, 
       _high, 

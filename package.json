@@ -10,7 +10,11 @@
     "start": "node index.js",
     "test": "mocha test/*.test.js",
     "test:book": "mocha test/book.test.js",
-    "test:candle": "mocha test/candle.test.js"
+    "test:candle": "mocha test/candle.test.js",
+    "test:coinbase": "mocha test/coinbase.test.js",
+    "test:coinzone": "mocha test/coinzone.test.js",
+    "test:strategy": "mocha test/strategy.test.js",
+    "test:utils": "mocha test/utils.test.js"
   },
   "keywords": [
     "nodejs",
