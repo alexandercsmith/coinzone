@@ -47,7 +47,7 @@ module.exports = class Coinbase {
         ? "https://api-public.sandbox.pro.coinbase.com" 
         : "https://api.pro.coinbase.com",
       headers: {
-        'CB-ACCESS-KEY': key,
+        'CB-ACCESS-KEY':        key,
         'CB-ACCESS-PASSPHRASE': phrase
       }
     });
@@ -81,7 +81,7 @@ module.exports = class Coinbase {
   }
 
 
-  /* --- [GET] --- */
+  /* --- { Coinbase } : [GET] --- */
 
 
   /**
@@ -102,7 +102,7 @@ module.exports = class Coinbase {
   };
 
 
-  /* --- [POST] --- */
+  /* --- { Coinbase } : [POST] --- */
 
 
   /**
@@ -135,6 +135,9 @@ module.exports = class Coinbase {
       throw new Error(e);
     }
   }
+
+
+  /* --- { Coinbase } : [Helpers] */
 
 
   /**

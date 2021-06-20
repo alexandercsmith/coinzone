@@ -60,7 +60,7 @@ module.exports = class Coinzone {
   }
 
 
-  /* --- [getters] --- */
+  /* --- { Coinzone } : [getters] --- */
 
 
   /**
@@ -73,7 +73,7 @@ module.exports = class Coinzone {
   }
 
 
-  /* --- [async] --- */
+  /* --- { Coinzone } : [async] --- */
 
   
   /**
@@ -98,9 +98,10 @@ module.exports = class Coinzone {
    */
   async loadCandles () {
     try {
+      const url = this.indicator;
       for (const [granularity, book] of this.strategy.books.entries()) {
-        await this.coinbase.get(`/products/${this.indicator}/candles`, { granularity })
-          .then(logs => logs.forEach(log => book.update = log));
+        await this.coinbase.get(url, { granularity }).then(logs => 
+          logs.forEach(log => book.update = log));
       }
       return;
     } catch (e) {

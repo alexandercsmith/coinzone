@@ -18,7 +18,7 @@ module.exports = class Strategy {
   }
 
 
-  /* --- { Indicator } : [props] --- */
+  /* --- { Strategy } : [props] --- */
 
 
   /**
@@ -34,7 +34,7 @@ module.exports = class Strategy {
   ]);
 
 
-  /* --- { Indicator } : [getters] --- */
+  /* --- { Strategy } : [getters] --- */
 
 
   /**
@@ -114,7 +114,7 @@ module.exports = class Strategy {
   }
 
 
-  /* --- { Indicator } : [setters] --- */
+  /* --- { Strategy } : [setters] --- */
 
 
   /**

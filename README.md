@@ -34,9 +34,10 @@ $ npm start
 ## [`Coinzone`](./src/index.js)
 
 ```js
+// @class { Coinzone }
 const Coinzone = require('./src');
 
-// Coinzone static module interfaces
+// @static 
 const { 
   Coinbase: { 
     Granularity, 
@@ -59,14 +60,15 @@ const {
   } 
 } = Coinzone;
 
-// Initialize Coinzone class instance
+// @instance
 const coinzone = new Coinzone({ base: "BTC", strategy: { ... } });
 
-/*
+/* @instance { new Coinzone }
  coinzone {
    base: "BTC",
-   api: { Coinbase },
-   strategy: { Strategy }
+   quote: "USD",
+   coinbase: { new Coinbase },
+   strategy: { new Strategy }
  }
  */
 ```
