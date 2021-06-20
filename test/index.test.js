@@ -22,8 +22,12 @@ async function main () {
         }]
       } 
     });
+
+    await coinzone.loadCandles();
     
     console.log('\n=>', coinzone, '\n');
+
+    console.log('\n=>', coinzone.strategy.results, '\n');
   } catch (e) {
     console.error(e);
     throw new Error(e);

@@ -14,24 +14,13 @@ module.exports = class Book {
   static Candle = require('./candle');
 
 
-  /**
-   * @constructor
-   * @param   { Array<Array> } data 
-   */
-  constructor (data=[]) {
-    for (const i in data) { 
-      this.set(data[i]); 
-    }
-  }
-
-
   /* --- { Book } : [props] --- */
 
 
   /**
-   * @property { Map } indicators
+   * @property { Map } signals
    */
-  indicators = new Map();
+  signals = new Map();
 
 
   /**
@@ -50,9 +39,9 @@ module.exports = class Book {
    */
   get results () {
     return Object.fromEntries([
-      ...this.indicators[Symbol.iterator]()
-    ].map(([_id, _indicator]) => 
-      [_id, _indicator.getResult().toFixed(2)||'']));
+      ...this.signals[Symbol.iterator]()
+    ].map(([_id, _signal]) => 
+      [_id, _signal.getResult().toFixed(2)||'']));
   }
 
 
@@ -130,15 +119,19 @@ module.exports = class Book {
 
 
   /**
-   * @function  indicator
+   * @function  signal
    * @type    { setter } 
    * @param   { Object } opts id interval
    */
-  set indicator ({ id, interval=3 }) {
+  set signal ({ id, interval=3 }) {
+    /* validate id */
     if (!Object.keys(Book.Signal).includes(id)) throw new Error('Invalid Indicator Id');
-    const _indicator = new Book.Signal[id](interval);
-    this.close.forEach(rate => _indicator.update(rate));
-    this.indicators.set(id, _indicator);
+    /* new Signal */
+    const _signal = new Book.Signal[id](interval);
+    /* [close] => { Signal } */
+    this.close.forEach(rate => _signal.update(rate));
+    /* [signals] << { Signal } */
+    this.signals.set(id, _signal);
   }
 
 
@@ -148,10 +141,13 @@ module.exports = class Book {
    * @param   { Array } input 
    */
   set update (input=[]) {
+    /* new Candle */
     const _candle = new Book.Candle(input);
-    for (const [_, _indicator] of this.indicators.entries()) {
-      _indicator.update(_candle.close);
+    /* iterate { indicators } and update */
+    for (const [_, _signal] of this.signals.entries()) {
+      _signal.update(_candle.close);
     }
+    /* logs[] << { Candle } */
     this.logs.push(_candle);
   }
 }

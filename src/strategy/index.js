@@ -10,16 +10,9 @@ module.exports = class Strategy {
 
   /**
    * @constructor 
-   * @param   { Object } data
+   * @param { Array<Object> } signals
    */
-  constructor ({
-    books   = ["1m", "5m", "15m", "1h", "6h", "1d"],
-    data    = {},
-    signals = [],
-  }) {
-    /* initialize { Book } models => indicator(Map:books) */
-    books.forEach(id => this.book = { id, input: data[id]||[] });
-
+  constructor (signals=[]) {
     /* initialize indicator(Map:books] signals */
     signals.forEach(signal => this.signal = signal);
   }
@@ -31,7 +24,14 @@ module.exports = class Strategy {
   /**
    * @property { Map } books 
    */
-  books = new Map();
+  books = new Map([
+    ["1m",  new Strategy.Book()],
+    ["5m",  new Strategy.Book()],
+    ["15m", new Strategy.Book()],
+    ["1h",  new Strategy.Book()],
+    ["6h",  new Strategy.Book()],
+    ["1d",  new Strategy.Book()]
+  ]);
 
 
   /* --- { Indicator } : [getters] --- */
@@ -118,26 +118,28 @@ module.exports = class Strategy {
 
 
   /**
-   * @function  book
-   * @type    { setter }
-   * @param   { Object } opts 
-   */
-  set book ({ id, input=[] }) {
-    this.books.set(id, new Strategy.Book(input));
-  }
-
-
-  /**
    * @function  signal
    * @type    { setter }
    * @param   { Object } opts id interval(3)
    */
   set signal ({ id, interval=3 }) {
     [...this.books[Symbol.iterator]()].forEach(([_, _book]) => {
-      _book.indicator = { 
+      _book.signal = { 
         id:       id.toUpperCase(), 
         interval: interval >= 3 ? interval : 3 
       };
     });
+  }
+
+
+  /**
+   * @function  update
+   * @type    { setter }
+   * @param   { Array<Number> } input
+   */
+  set update (input=[]) {
+    for (const [_, _book] of this.books.entries()) {
+      _book.update = input;
+    }
   }
 }

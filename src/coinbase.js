@@ -36,25 +36,19 @@ module.exports = class Coinbase {
 
   /**
    * @constructor
-   * @param { Boolean } production false
+   * @param { Object } initializers key phrase secret sandbox
    */
-  constructor (production=false) {
+  constructor ({ key, phrase, secret, sandbox=true }) {
     /**
      * @prop { Object } api
      */
-    this.api = axios.create(production 
-    ? {
-      baseURL: "https://api.pro.coinbase.com",
+    this.api = axios.create({
+      baseURL: sandbox 
+        ? "https://api-public.sandbox.pro.coinbase.com" 
+        : "https://api.pro.coinbase.com",
       headers: {
-        'CB-ACCESS-KEY': process.env.COINBASE_PRODUCTION_KEY,
-        'CB-ACCESS-PASSPHRASE': process.env.COINBASE_PRODUCTION_PHRASE
-      }
-    } 
-    : {
-      baseURL: "https://api-public.sandbox.pro.coinbase.com",
-      headers: {
-        'CB-ACCESS-KEY': process.env.COINBASE_SANDBOX_KEY,
-        'CB-ACCESS-PASSPHRASE': process.env.COINBASE_SANDBOX_PHRASE
+        'CB-ACCESS-KEY': key,
+        'CB-ACCESS-PASSPHRASE': phrase
       }
     });
     
@@ -63,17 +57,13 @@ module.exports = class Coinbase {
       const timestamp = Date.now() / 1000;
       
       // headers['CB-ACCESS-SIGN']
-      const signature = crypto.createHmac('sha256', 
-        Buffer.from(production 
-        ? process.env.COINBASE_PRODUCTION_SECRET 
-        : process.env.COINBASE_SANDBOX_SECRET, 
-        'base64'))
+      const signature = crypto.createHmac('sha256', Buffer.from(secret, 'base64'))
       .update([
-          timestamp, 
-          config.method.toUpperCase(), 
-          config.url, 
-          (!!config.data ? JSON.stringify(config.data) : '')
-        ].join(''))
+        timestamp, 
+        config.method.toUpperCase(), 
+        config.url, 
+        (!!config.data?JSON.stringify(config.data):'')
+      ].join(''))
       .digest('base64');
 
       // config[headers]
