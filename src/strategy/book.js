@@ -125,7 +125,9 @@ module.exports = class Book {
    */
   set signal ({ id, interval=3 }) {
     /* validate id */
-    if (!Object.keys(Book.Signal).includes(id)) throw new Error('Invalid Indicator Id');
+    if (!Object.keys(Book.Signal).includes(id)) {
+      throw new Error('Invalid Indicator Id');
+    }
     /* new Signal */
     const _signal = new Book.Signal[id](interval);
     /* [close] => { Signal } */

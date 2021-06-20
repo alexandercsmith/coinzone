@@ -75,6 +75,7 @@ module.exports = class Coinzone {
 
   /* --- [async] --- */
 
+  
   /**
    * @async
    * @function init
@@ -88,6 +89,7 @@ module.exports = class Coinzone {
       throw new Error(e);
     }
   }
+
 
   /**
    * @async

@@ -34,6 +34,8 @@ $ npm start
 ## [`Coinzone`](./src/index.js)
 
 ```js
+const Coinzone = require('./src');
+
 // Coinzone static module interfaces
 const { 
   Coinbase: { 
@@ -42,8 +44,12 @@ const {
   }, 
   Strategy: {
     Book: {
-      Signal,
-      Candle
+      Signal: {
+        ...(`trading-signals`)
+      },
+      Candle: {
+        Model
+      }
     }
   }, 
   utils: {

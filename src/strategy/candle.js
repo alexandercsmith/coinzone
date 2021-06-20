@@ -3,10 +3,10 @@
  */
 module.exports = class Candle {
   /**
-   * @static @constant Schema
+   * @static @constant Model
    * @type    { Array<String> }
    */
-  static Schema = [
+  static Model = [
     "time",   // [0]
     "low",    // [1]
     "high",   // [2]
@@ -23,7 +23,7 @@ module.exports = class Candle {
   constructor (input=[]) {
     if (input.length !== 6) throw new Error('Invalid Candle Input');
     for (let i = 0; i < input.length; i++) { 
-      this[Candle.Schema[i]] = input[i]; 
+      this[Candle.Model[i]] = input[i]; 
     }
   }
 }

@@ -52,6 +52,9 @@ module.exports = class Coinbase {
       }
     });
     
+    /**
+     * @instance
+     */
     this.api.interceptors.request.use(function (config) {
       // headers['CB-ACCESS-TIMESTAMP']
       const timestamp = Date.now() / 1000;
@@ -62,7 +65,7 @@ module.exports = class Coinbase {
         timestamp, 
         config.method.toUpperCase(), 
         config.url, 
-        (!!config.data?JSON.stringify(config.data):'')
+        (!!config.data ? JSON.stringify(config.data) : '')
       ].join(''))
       .digest('base64');
 
