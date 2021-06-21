@@ -7,7 +7,7 @@ const { expect } = require('chai');
 /**
  * @module utils
  */
-const utils = require('../src/utils');
+const utils = require('../lib/utils');
 
 
 /**

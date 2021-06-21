@@ -105,3 +105,6 @@ dist
 
 # Temporary files
 tmp/
+
+# Mock Testing
+test/index.js

@@ -7,7 +7,8 @@
     "test": "test"
   },
   "scripts": {
-    "script:accumulate": "node scripts/accumulate.js",
+    "mock": "node test/index.js",
+    "scripts:markets": "node scripts/markets.js",
     "test": "mocha test/*.test.js",
     "test:book": "mocha test/book.test.js",
     "test:candle": "mocha test/candle.test.js",

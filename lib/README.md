@@ -10,25 +10,20 @@
 
 ```js
 // @class { Coinzone }
-const Coinzone = require('./src');
+const Coinzone = require('.');
 
 // @static 
 const { 
+  Book: {         /* @class { Book } */
+    Signal: {     /* @imports */
+      ...('trading-signals')
+    }
+  },           
   Coinbase: {     /* @class { Coinbase } */
     Granularity,  /* @object */
     OrderParam,   /* @object */
     Websocket     /* @function */
-  }, 
-  Strategy: {     /* @class { Strategy } */
-    Book: {       /* @class { Book } */
-      Signal: {   /* @package */
-        ...(`trading-signals`)
-      },
-      Candle: {   /* @class { Candle } */
-        Model     /* @object */
-      }
-    }
-  }, 
+  },
   utils: {        /* @module */
     combinations, /* @function */
     permutations, /* @function */
@@ -46,7 +41,7 @@ const coinzone = new Coinzone({
     secret,
     sandbox
   },
-  strategy: { 
+  signals: { 
     ... 
   } 
 });
@@ -61,11 +56,21 @@ const coinzoneWithDataLoad = new Coinzone({
    base:     "BTC",
    quote:    "USD",
    coinbase: { new Coinbase },
-   strategy: { new Strategy },
+   books:    Map,
 
    get indicator // => String
+   get results   // => Object
+   get lows      // => Object
+   get highs     // => Object
+   get opens     // => Object
+   get closes    // => Object
+   get volumes   // => Object
+
+   set signal
+   set update
    
-   async init ()
+   async load ()
+   async loadCandles () 
  }
  */
 ```

@@ -10,9 +10,9 @@
 
 ---
 
-### [`accumulate`](./accumulate.js) 
+### [`markets`](./markets.js) 
 
 ```bash
-# Run `accumulate` script task
-$ npm run script:accumulate
+# Run `markets` script task
+$ npm run scripts:markets
 ```

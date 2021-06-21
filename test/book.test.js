@@ -7,7 +7,7 @@ const { expect } = require('chai');
 /**
  * @class
  */
-const Book = require('../src/book');
+const Book = require('../lib/book');
 
 
 /**
@@ -18,13 +18,6 @@ describe('@class Book', () => {
    * @static
    */
   describe('@static', () => {
-    /**
-     * @property { Class } Candle
-     */
-    it('should have @property #Candle', () => {
-      expect(Book).to.haveOwnProperty('Candle');
-    });
-
     /**
      * @property { Object } Signal
      */

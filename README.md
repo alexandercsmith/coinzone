@@ -6,7 +6,7 @@
 
 __Status__: _`WIP`_
 
-## Install
+### Install
 
 ```bash
 # Install package dependencies
@@ -19,9 +19,8 @@ $ npm install
 # Run benchmark unit tests
 $ npm test
 
-# > 37 passing
+# > 30 passing
 ```
-
 ---
 
 ## References

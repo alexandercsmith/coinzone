@@ -7,7 +7,7 @@ const { expect } = require('chai');
 /**
  * @class
  */
-const Coinzone = require('../src');
+const Coinzone = require('../lib');
 
 
 /**
