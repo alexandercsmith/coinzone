@@ -9,6 +9,7 @@ module.exports = new class Accumulate extends require('../src') {
    * @constructor 
    */
   constructor () {
+    /* @class Coinzone */
     super({
       strategy: {
         sma: 7
