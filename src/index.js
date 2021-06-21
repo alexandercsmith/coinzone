@@ -27,13 +27,17 @@ module.exports = class Coinzone {
 
   /**
    * @constructor
-   * @param { Object } configuration
+   * @param { Object } config
+   * @prop  { String } base
+   * @prop  { String } quote 
+   * @prop  { Object } coinbase
+   * @prop  { Object } strategy
    */
-  constructor ({ 
-    base     = "BTC", /* @type { String } */
-    quote    = "USD", /* @type { String } */
-    coinbase = {},    /* @type { Object } */
-    strategy = {}     /* @type { Object }  */
+  constructor (config = { 
+    base:     "BTC", /* @type { String } */
+    quote:    "USD", /* @type { String } */
+    coinbase: {},    /* @type { Object } */
+    strategy: {}     /* @type { Object }  */
   }) {
     /* @debug */
     if (process.env.NODE_ENV === 'development') {
@@ -44,14 +48,14 @@ module.exports = class Coinzone {
      * @property { String } base
      * @property { String } quote
      */
-    this.base  = base.toUpperCase();
-    this.quote = quote.toUpperCase();
+    this.base  = config.base.toUpperCase();
+    this.quote = config.quote.toUpperCase();
 
     /**
      * @property { Class } coinbase
      */
-    this.coinbase = new Coinzone.Coinbase(Object.entries(coinbase).length > 0 
-    ? coinbase 
+    this.coinbase = new Coinzone.Coinbase(Object.entries(config.coinbase).length > 0 
+    ? config.coinbase 
     : {
       key:    process.env.COINBASE_SANDBOX_KEY,
       phrase: process.env.COINBASE_SANDBOX_PHRASE,
@@ -61,7 +65,7 @@ module.exports = class Coinzone {
     /**
      * @property { Class } strategy
      */
-    this.strategy = new Coinzone.Strategy(strategy);
+    this.strategy = new Coinzone.Strategy(config.strategy);
   }
 
 
@@ -77,7 +81,7 @@ module.exports = class Coinzone {
   
   /**
    * @async
-   * @function init
+   * @function load
    * @return { Boolean }
    */
   async load () {
@@ -105,4 +109,9 @@ module.exports = class Coinzone {
       throw new Error(e);
     }
   }
+
+  /**
+   * @async
+   * @function 
+   */
 }

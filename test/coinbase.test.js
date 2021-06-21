@@ -32,4 +32,9 @@ describe('@class Coinbase', () => {
       expect(Coinbase).to.haveOwnProperty('Websocket');
     });
   });
+
+
+  /**
+   * @instance
+   */
 });

@@ -25,4 +25,21 @@ describe('@class Strategy', () => {
       expect(Strategy).to.haveOwnProperty('Book');
     });
   });
+
+  /**
+   * @instance
+   */
+  describe('@instance', () => {
+    /**
+     * @interface strategy
+     */
+    const strategy = new Strategy();
+
+    /**
+     * @property { Map } books
+     */
+    it('should have @property #books', () => {
+      expect(strategy).to.haveOwnProperty('books');
+    })
+  })
 });
