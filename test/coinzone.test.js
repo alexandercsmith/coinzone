@@ -19,23 +19,23 @@ describe('@class Coinzone', () => {
    */
   describe('@static', () => {
     /**
-     * @property { Class } Coinbase
+     * @property { Class } Book
      */
-    it('should have @property #Model', () => {
-      expect(Coinzone).to.haveOwnProperty('Coinbase');
+    it('should have @property #Book', () => {
+      expect(Coinzone).to.haveOwnProperty('Book');
     });
 
     /**
-     * @property { Class } Strategy
+     * @property { Class } Coinbase
      */
-    it('should have @property #Model', () => {
-      expect(Coinzone).to.haveOwnProperty('Strategy');
+    it('should have @property #Coinbase', () => {
+      expect(Coinzone).to.haveOwnProperty('Coinbase');
     });
 
     /**
      * @property { Module } utils
      */
-    it('should have @property #Model', () => {
+    it('should have @property #utils', () => {
       expect(Coinzone).to.haveOwnProperty('utils');
     });
   });
@@ -48,7 +48,7 @@ describe('@class Coinzone', () => {
     /**
      * @interface coinzone
      */
-    const coinzone = new Coinzone();
+    const coinzone = new Coinzone({});
 
     /**
      * @property { String } base 
@@ -62,14 +62,14 @@ describe('@class Coinzone', () => {
     });
 
     /**
-     * @property { String } quote
+     * @property { Class } books
      */
-    it('should have @property #quote', () => {
-      expect(coinzone).to.haveOwnProperty('quote');
+    it('should have @property #books', () => {
+      expect(coinzone).to.haveOwnProperty('books');
     });
 
-    it('should return @property #quote of type { String }', () => {
-      expect(typeof coinzone.quote).to.equal('string');
+    it('should return @property #books of type { Object }', () => {
+      expect(typeof coinzone.books).to.equal('object');
     });
 
     /**
@@ -84,14 +84,14 @@ describe('@class Coinzone', () => {
     });
 
     /**
-     * @property { Class } strategy
+     * @property { String } quote
      */
-    it('should have @property #strategy', () => {
-      expect(coinzone).to.haveOwnProperty('strategy');
+    it('should have @property #quote', () => {
+      expect(coinzone).to.haveOwnProperty('quote');
     });
 
-    it('should return @property #strategy of type { Object }', () => {
-      expect(typeof coinzone.strategy).to.equal('object');
+    it('should return @property #quote of type { String }', () => {
+      expect(typeof coinzone.quote).to.equal('string');
     });
   });
 });

@@ -7,7 +7,7 @@ const { expect } = require('chai');
 /**
  * @class
  */
-const Coinbase = require('../lib/coinbase');
+const { Coinbase } = require('../lib');
 
 
 /**
@@ -26,6 +26,13 @@ describe('@class Coinbase', () => {
     });
 
     /**
+     * @property { Object } OrderParam
+     */
+    it('should have @property #OrderParam', () => {
+      expect(Coinbase).to.haveOwnProperty('OrderParam');
+    });
+
+    /**
      * @property { Function } Websocket
      */
     it('should have @property #Websocket', () => {
@@ -37,4 +44,21 @@ describe('@class Coinbase', () => {
   /**
    * @instance
    */
+  describe('@instance', () => {
+    /**
+     * @interface
+     */
+    const coinbase = new Coinbase({});
+
+    /**
+     * @property { String } clientId 
+     */
+    it('should have @property #clientId', () => {
+      expect(coinbase).to.haveOwnProperty('clientId');
+    });
+
+    it('should return @property #clientId of type { String }', () => {
+      expect(typeof coinbase.clientId).to.equal('string');
+    });
+  });
 });

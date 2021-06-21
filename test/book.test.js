@@ -7,7 +7,7 @@ const { expect } = require('chai');
 /**
  * @class
  */
-const Book = require('../lib/book');
+const { Book } = require('../lib');
 
 
 /**
